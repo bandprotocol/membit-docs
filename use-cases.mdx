@@ -1,98 +1,73 @@
 ---
 title: "Use Cases"
+description: "Discover how Membit can be used to power a new generation of context-aware applications."
+icon: "lightbulb"
 ---
 
-Membit can be used in a variety of ways to enhance your AI applications. Here are a few examples:
+Membit's real-time context can be applied to a wide range of use cases, from financial trading to brand management. Here are a few examples of how you can leverage Membit to build smarter, more responsive applications.
 
-### Trend Spotting
-
-<CardGroup>
-  <Card title="Crypto-Fund Alpha Hunter">
-    <p>
-      **Architecture:** `clusters_search` every 15 min → sentiment filter →
-      velocity ranking → Slack/Discord alert
-    </p>
-    <p>**Code:** Python + LangChain retriever</p>
-    <p>**Collateral:** Blog “How Wintermute Found the Next 10× Gem Early”</p>
-  </Card>
-  <Card title="Viral Content Engine">
-    <p>
-      **Pipeline:** daily cron → Membit → GPT summarization → Notion brief →
-      editorial Slack
-    </p>
-    <p>**Demo:** Streamlit “Crypto Zeitgeist” dashboard</p>
-    <p>
-      **Collateral:** SEO guide “Write the Perfect AI Newsletter with Membit”
-    </p>
-  </Card>
-  <Card title="Launch Pulse Monitor">
-    <p>
-      **Flow:** Bubble plugin → Zapier → Jira tickets for negative clusters +
-      marketing highlights
-    </p>
-    <p>**Demo:** Clone-able Bubble app</p>
-    <p>**Collateral:** Video “Track Your Product Launch with Zero Code”</p>
-  </Card>
-</CardGroup>
-
-### Disaster Detection
-
-<CardGroup>
-  <Card title="Geo-Fenced Port-Strike Alert">
-    <p>
-      **Setup:** Local Data Hunters → geo-filter → MS Teams/PagerDuty webhook
-    </p>
-    <p>**Demo:** Retool map widget</p>
-    <p>**Collateral:** Case study “Avoiding $5 M in Port Delays”</p>
-  </Card>
-  <Card title="NGO Emergency Map">
-    <p>
-      **Flow:** `posts_search` + image tags → ArcGIS → public crisis dashboard
-    </p>
-    <p>**Demo:** React “Live Crisis Map”</p>
-    <p>**Collateral:** Pro-bono pilot report</p>
-  </Card>
-  <Card title="DeFi Exploit Immune System">
-    <p>
-      **Flow:** Private-forum monitor → high-threat clusters → Snapshot pause
-      proposals
-    </p>
-    <p>**Demo:** Discord “Exploit Alert” bot</p>
-    <p>**Collateral:** Joint security whitepaper</p>
-  </Card>
-</CardGroup>
-
-### Sentiment Feedback
-
-<CardGroup>
-  <Card title="Brand Crisis Aversion">
-    <p>
-      **Flow:** real-time sentiment spikes → GPT-draft status → Slack + email
-      digest
-    </p>
-    <p>**Demo:** Node.js “Crisis Comms Assistant” repo</p>
-    <p>**Collateral:** Webinar “Turning Crisis into Opportunity”</p>
-  </Card>
-  <Card title="Startup Launch Signal">
-    <p>**Flow:** daily email pulse + Notion brief → Datadog KPI dashboard</p>
-    <p>**Demo:** Email template + guide</p>
-    <p>
-      **Collateral:** “How YC Startups Pivot in 24 Hours with Real-Time Data”
-    </p>
-  </Card>
-  <Card title="Competitive Intel Feed">
-    <p>**Flow:** competitor keyword monitor → lead scoring → Salesforce CRM</p>
-    <p>**Demo:** Postman collection</p>
-    <p>**Collateral:** eBook “Win Deals with Social-First Intel”</p>
-  </Card>
-  <Card title="LLM Drift Detector">
-    <p>
-      **Flow:** chatbot QA metrics → correlate Membit trends → automated Jira
-      tickets
-    </p>
-    <p>**Demo:** Python notebook + Grafana</p>
-    <p>
-      **Collateral:** Tech blog “Diagnose LLM Failures with Real-Time Context”
-    </p>
-  </Card>
-</CardGroup>{" "}
+<Tabs>
+  <Tab title="Trend Spotting">
+    <CardGroup>
+      <Card title="Crypto-Fund Alpha Hunter" icon="chart-mixed">
+        **Architecture:** `clusters_search` every 15 min → sentiment filter →
+        velocity ranking → Slack/Discord alert
+        <br />
+        **Collateral:** Blog post on "How to Find the Next 10x Gem Early"
+      </Card>
+      <Card title="Viral Content Engine" icon="newspaper">
+        **Pipeline:** daily cron → Membit → GPT summarization → Notion brief →
+        editorial Slack
+        <br />
+        **Collateral:** SEO guide on "How to Write the Perfect AI Newsletter"
+      </Card>
+      <Card title="Launch Pulse Monitor" icon="rocket">
+        **Flow:** Bubble plugin → Zapier → Jira tickets for negative clusters +
+        marketing highlights
+        <br />
+        **Collateral:** Video on "How to Track Your Product Launch with Zero
+        Code"
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Disaster Detection">
+    <CardGroup>
+      <Card title="Geo-Fenced Port-Strike Alert" icon="ship">
+        **Setup:** Local Data Hunters → geo-filter → MS Teams/PagerDuty webhook
+        <br />
+        **Collateral:** Case study on "Avoiding $5M in Port Delays"
+      </Card>
+      <Card title="NGO Emergency Map" icon="map">
+        **Flow:** `posts_search` + image tags → ArcGIS → public crisis dashboard
+        <br />
+        **Collateral:** Pro-bono pilot report
+      </Card>
+      <Card title="DeFi Exploit Immune System" icon="shield-check">
+        **Flow:** Private-forum monitor → high-threat clusters → Snapshot pause
+        proposals
+        <br />
+        **Collateral:** Joint security whitepaper
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Sentiment Feedback">
+    <CardGroup>
+      <Card title="Brand Crisis Aversion" icon="building-shield">
+        **Flow:** real-time sentiment spikes → GPT-draft status → Slack + email
+        digest
+        <br />
+        **Collateral:** Webinar on "Turning Crisis into Opportunity"
+      </Card>
+      <Card title="Startup Launch Signal" icon="signal">
+        **Flow:** daily email pulse + Notion brief → Datadog KPI dashboard
+        <br />
+        **Collateral:** Guide on "How YC Startups Pivot in 24 Hours"
+      </Card>
+      <Card title="Competitive Intel Feed" icon="magnifying-glass">
+        **Flow:** competitor keyword monitor → lead scoring → Salesforce CRM
+        <br />
+        **Collateral:** eBook on "Winning Deals with Social-First Intel"
+      </Card>
+    </CardGroup>
+  </Tab>
+</Tabs>

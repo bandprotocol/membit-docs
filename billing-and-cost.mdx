@@ -1,15 +1,47 @@
 ---
 title: "Billing & Cost"
+description: "Understand Membit's pricing, plans, and API credit system."
+icon: "credit-card"
 ---
 
-During our beta period, Membit is available with liberal limits, free of charge. We want to encourage developers to build and experiment with our platform without worrying about costs.
+Membit offers flexible, value-based plans designed to scale with your needs. Our strategy is built on a developer-friendly credit system, clear upgrade paths, and a unique growth loop powered by our Data Hunter community.
 
-### Beta Access
+## API Credit System
 
-As a beta user, you'll have access to all of Membit's features. We may introduce rate limiting to ensure a stable experience for all users, but our goal is to provide you with as much access as possible.
+To align cost with value, API calls are weighted differently based on their complexity and the insight they provide.
 
-### Custom Data Pipelines
+<CardGroup cols={3}>
+  <Card title="clusters_search" icon="chart-network">
+    **Cost:** 5 credits
+  </Card>
+  <Card title="clusters_info" icon="chart-scatter-bubble">
+    **Cost:** 2 credits
+  </Card>
+  <Card title="posts_search" icon="magnifying-glass">
+    **Cost:** 1 credit
+  </Card>
+</CardGroup>
 
-If you have specific needs that aren't met by our standard API, we also offer customized data pipelines. Whether you need higher throughput, specialized data sources, or custom processing, we can work with you to create a solution that fits your requirements.
+## Pricing Tiers
 
-For more information on custom pipelines or to discuss your specific use case, please [contact us](mailto:hi@membit.ai).
+| Tier           | Monthly Price | Monthly Credits  | Key Features                                                       |
+| -------------- | ------------- | ---------------- | ------------------------------------------------------------------ |
+| **Researcher** | **$0**        | 1,000 credits    | Free forever. 24-hour data retention. Limited cluster/post depth.  |
+| **Bootstrap**  | **$20**       | 3,000 credits    | 7-day data retention. Increased cluster/post depth.                |
+| **Startup**    | **$100**      | 20,000 credits   | 30-day data retention. Access to time-decay scores & metadata.     |
+| **Growth**     | **$250**      | 60,000 credits   | 90-day data retention. Higher API rate limits.                     |
+| **Scale**      | **$1,000**    | 300,000 credits  | 1-year+ data retention. Priority support.                          |
+| **Enterprise** | **$5,000+**   | Volume Discounts | Custom data pipelines, SLAs, dedicated support, enhanced security. |
+
+<Info>
+  **Top-Up Credits:** You can purchase additional credits at any time for **$10
+  per 1,000 credits**. Top-up credits never expire.
+</Info>
+
+## Beta Program
+
+<Note>
+  During our beta period, Membit is available with liberal limits. For extra
+  usage or to discuss a customized data pipeline, please [contact
+  us](mailto:support@membit.ai).
+</Note>

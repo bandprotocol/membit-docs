@@ -1,19 +1,33 @@
 ---
 title: "Access & Authentication"
+description: "Learn how to get your API key and authenticate with the Membit API."
+icon: "key"
 ---
 
-Getting started with Membit is simple. Follow these steps to get your API key and start building.
+Getting started with the Membit API is simple. Follow these steps to get your API key and make your first request.
 
 <Steps>
-  <Step title="Visit the Membit Website">
-    Navigate to [https://membit.ai](https://membit.ai) to create an account.
+  <Step title="Sign in to Membit">
+    First, head over to [membit.ai](https://membit.ai) and sign in using your
+    GitHub or Google account.
   </Step>
-  <Step title="Sign In">
-    You can sign in using your GitHub or Google account for a seamless
-    experience.
+  <Step title="Get your API key">
+    Once you're signed in, you'll be able to generate a free API key from your
+    account dashboard. This key will give you access to the Membit API.
   </Step>
-  <Step title="Get Your API Key">
-    Once you're logged in, you can generate a free API key from your dashboard.
-    This key will allow you to start using the Membit API immediately.
+  <Step title="Authenticate your requests">
+    To authenticate your requests, you'll need to include your API key in the
+    `Authorization` header of your requests, prefixed with `Bearer `.
   </Step>
-</Steps>{" "}
+</Steps>
+
+<RequestExample>
+
+```bash
+curl 'https://api-app.membit.ai/clusters/search?q=crypto' \
+-H 'Authorization: Bearer YOUR_API_KEY'
+```
+
+</RequestExample>
+
+<Warning>Keep your API key secure and do not share it publicly.</Warning>

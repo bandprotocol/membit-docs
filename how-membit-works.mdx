@@ -1,28 +1,36 @@
 ---
 title: "How Membit Works"
+description: "Learn about the data pipeline that powers Membit's real-time context."
+icon: "microchip"
 ---
 
-Membit's data pipeline is designed to transform raw, user-generated content into a high-fidelity stream of context for your AI applications. Here’s how it works:
+Membit's power comes from a sophisticated data pipeline that transforms raw, user-generated content into structured, high-signal context for AI agents. This process involves a unique combination of human curation and automated processing.
 
 <Steps>
-  <Step title="Data Contribution">
-    **Data Hunters** contribute social posts they find valuable. This collective
-    ranking process helps identify important and significant content from the
-    noise.
+  <Step title="Step 1: Data Hunters Contribute Content">
+    The process begins with our global network of **Data Hunters**. Using a
+    browser extension, they capture relevant social media posts, news articles,
+    and other online content as they browse. This human-in-the-loop approach
+    ensures that we are sourcing content that is genuinely interesting and
+    significant.
   </Step>
-  <Step title="Verification and Filtering">
-    Data sources are verified for authenticity. Irrelevant, duplicate, or
-    unimportant posts are filtered out using automated checks and AI
-    classifiers.
+  <Step title="Step 2: Verification and Filtering">
+    Once submitted, the raw data enters our distributed infrastructure for
+    validation. Automated checks and AI classifiers work to filter out spam,
+    duplicates, and irrelevant content. This ensures that only high-quality,
+    timely information proceeds to the next stage.
   </Step>
-  <Step title="Clustering and Analysis">
-    The top posts are grouped into thematic "discussion clusters" using an
-    unsupervised clustering algorithm. This allows for easy searching and
-    retrieval of context on specific topics.
+  <Step title="Step 3: Clustering and Analysis">
+    The verified posts are then transformed into vector embeddings. An
+    unsupervised clustering algorithm groups semantically related posts into
+    "discussion clusters," representing distinct narrative themes. We also apply
+    a time-decayed engagement score to prioritize the most active and relevant
+    conversations.
   </Step>
-  <Step title="Context Delivery">
-    Membit offers multiple connectors, including a REST API and an MCP server,
-    allowing AI tools and agent platforms to easily access these clusters of
-    information as context.
+  <Step title="Step 4: API Delivery">
+    The final, structured context is made available through our
+    developer-friendly API. AI developers can easily integrate this real-time
+    data feed into their applications using our RESTful endpoints or the Model
+    Context Protocol (MCP) server.
   </Step>
-</Steps>{" "}
+</Steps>

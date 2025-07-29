@@ -13,31 +13,31 @@
     "dark": "#5050ff"
   },
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": [
-              "index",
-              "how-membit-works",
-              "use-cases",
-              "access-and-auth",
-              "billing-and-cost"
-            ]
-          },
-          {
-            "group": "API Usage",
-            "pages": [
-              "api-usage/restful",
-              "api-usage/mcp-server",
-              "api-usage/python",
-              "api-usage/typescript",
-              "api-usage/rust",
-              "api-usage/go"
-            ]
-          },
+        "group": "Get Started",
+        "pages": [
+          "index",
+          "how-membit-works",
+          "use-cases",
+          "access-and-auth",
+          "billing-and-cost"
+        ]
+      },
+      {
+        "group": "API Usage",
+        "pages": [
+          "api-usage/restful",
+          "api-usage/mcp-server",
+          "api-usage/python",
+          "api-usage/typescript",
+          "api-usage/rust",
+          "api-usage/go"
+        ]
+      },
+      {
+        "group": "Integrations",
+        "pages": [
           {
             "group": "LLMs",
             "pages": [
@@ -46,7 +46,7 @@
             ]
           },
           {
-            "group": "No-Code Agent Frameworks",
+            "group": "No-Code Agents",
             "pages": [
               "integrations/no-code-agent-frameworks/n8n",
               "integrations/no-code-agent-frameworks/gumloop",
@@ -57,7 +57,7 @@
             ]
           },
           {
-            "group": "Python Agent Framework",
+            "group": "Python Agents",
             "pages": [
               "integrations/python-agent-framework/crewai",
               "integrations/python-agent-framework/langgraph",
@@ -66,29 +66,29 @@
             ]
           },
           {
-            "group": "Typescript Agent Framework",
+            "group": "Typescript Agents",
             "pages": [
               "integrations/typescript-agent-framework/mastra",
               "integrations/typescript-agent-framework/voltagent"
             ]
-          },
-          {
-            "group": "Data Hunters",
-            "pages": [
-              "data-hunters/browser-extension",
-              "data-hunters/reward-calculation",
-              "data-hunters/leaderboard",
-              "data-hunters/point-redemption",
-              "data-hunters/data-privacy-and-compliance"
-            ]
-          },
-          {
-            "group": "Misc",
-            "pages": [
-              "misc/faqs",
-              "misc/troubleshoots"
-            ]
           }
+        ]
+      },
+      {
+        "group": "Data Hunters",
+        "pages": [
+          "data-hunters/browser-extension",
+          "data-hunters/reward-calculation",
+          "data-hunters/leaderboard",
+          "data-hunters/point-redemption",
+          "data-hunters/data-privacy-and-compliance"
+        ]
+      },
+      {
+        "group": "Misc",
+        "pages": [
+          "misc/faqs",
+          "misc/troubleshoots"
         ]
       }
     ]
