@@ -1,115 +1,115 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
-  "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+  "theme": "maple",
+  "name": "Membit",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#6b6bff",
+    "light": "#8f8fff",
+    "dark": "#5050ff"
+  },
   "navigation": {
     "tabs": [
       {
         "tab": "Guides",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Get Started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "how-membit-works",
+              "use-cases",
+              "access-and-auth",
+              "billing-and-cost"
             ]
           },
           {
-            "group": "Customization",
+            "group": "API Usage",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "api-usage/restful",
+              "api-usage/mcp-server",
+              "api-usage/python",
+              "api-usage/typescript",
+              "api-usage/rust",
+              "api-usage/go"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "LLMs",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "integrations/llms/custom-chatgpt",
+              "integrations/llms/claude-desktop"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "No-Code Agent Frameworks",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
+              "integrations/no-code-agent-frameworks/n8n",
+              "integrations/no-code-agent-frameworks/gumloop",
+              "integrations/no-code-agent-frameworks/flowise",
+              "integrations/no-code-agent-frameworks/langflow",
+              "integrations/no-code-agent-frameworks/chainlit",
+              "integrations/no-code-agent-frameworks/cursor"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Python Agent Framework",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "integrations/python-agent-framework/crewai",
+              "integrations/python-agent-framework/langgraph",
+              "integrations/python-agent-framework/llamaindex",
+              "integrations/python-agent-framework/autogen"
+            ]
+          },
+          {
+            "group": "Typescript Agent Framework",
+            "pages": [
+              "integrations/typescript-agent-framework/mastra",
+              "integrations/typescript-agent-framework/voltagent"
+            ]
+          },
+          {
+            "group": "Data Hunters",
+            "pages": [
+              "data-hunters/browser-extension",
+              "data-hunters/reward-calculation",
+              "data-hunters/leaderboard",
+              "data-hunters/point-redemption",
+              "data-hunters/data-privacy-and-compliance"
+            ]
+          },
+          {
+            "group": "Misc",
+            "pages": [
+              "misc/faqs",
+              "misc/troubleshoots"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    ]
   },
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Discord",
+        "href": "https://discord.gg/membit"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Official Website",
+      "href": "https://membit.ai"
     }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/membit_ai",
+      "github": "https://github.com/membit"
     }
   }
 }
