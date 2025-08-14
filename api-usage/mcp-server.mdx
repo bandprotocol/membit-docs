@@ -1,12 +1,82 @@
 ---
 title: "MCP Server"
-description: "Learn how to use Membit's MCP Server to integrate with AI agent frameworks."
+description: "Use Membit's Model Context Protocol (MCP) server to give AI agents real-time social context."
 icon: "cube"
 ---
 
-Welcome to the Membit MCP Server documentation. This section will provide you with all the information you need to integrate Membit with your favorite AI agent frameworks.
+Membit MCP Server connects your AI systems to live social insights via Membit's API. Using the Model Context Protocol (MCP), the server exposes tools that make up-to-the-minute social context—trending discussion clusters, raw posts, and more—available to your AI agents in Cursor, Claude Desktop, Goose, and any MCP-compatible client.
 
-<Info>
-  This documentation is currently under development. Please check back soon for
-  more details.
-</Info>
+## Remote MCP Server
+
+Use the hosted remote MCP endpoint—no local setup required.
+
+```text
+https://mcp.membit.ai/mcp/?membitApiKey=<your-api-key>
+```
+
+<Tip>Get your API key at [membit.ai](https://membit.ai).</Tip>
+
+### Configuring MCP Clients
+
+See platform-specific setup guides in the **Integrations** section.
+
+## Local MCP
+
+Run the server locally if you prefer.
+
+### Requirements
+
+- Membit API key ([get one](https://membit.ai))
+- Python 3.11+
+- An MCP client (e.g., Claude Desktop, Goose, Cursor)
+- Git (optional, if cloning)
+
+### API Key Configuration
+
+Provide your key in one of two ways:
+
+- Environment variable (recommended):
+
+```bash
+export MEMBIT_API_KEY=your_api_key
+```
+
+- URL parameter (useful for direct HTTP testing):
+
+```text
+http://localhost:8000/mcp?membitApiKey=your_api_key
+```
+
+### Use with Docker
+
+Build and run with Docker:
+
+```bash
+# Build image
+docker build -t membit-mcp .
+
+# Run with environment variable
+docker run -p 8000:8000 -e MEMBIT_API_KEY=your_api_key membit-mcp
+
+# Or run without env and pass key via URL when calling
+# Then access: http://localhost:8000/mcp?membitApiKey=your_api_key
+```
+
+### Local Installation
+
+```bash
+git clone https://github.com/bandprotocol/membit-mcp.git
+cd membit-mcp
+uv sync
+uv run src/membit_mcp/server.py
+```
+
+## How It Works
+
+The server exposes these MCP tools (via the Membit Python SDK):
+
+- **clusters_search**: Calls `AsyncMembitClient.cluster_search(query, limit)`
+- **clusters_info**: Calls `AsyncMembitClient.cluster_info(label, limit)`
+- **posts_search**: Calls `AsyncMembitClient.post_search(query, limit)`
+
+Responses are returned as LLM-friendly text for easy consumption.
