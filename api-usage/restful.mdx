@@ -305,7 +305,7 @@ Search for individual social media posts using semantic similarity.
 </ParamField>
 
 ```bash curl GET
-curl -X GET "https://api-app.membit.ai/posts/search?q=machine%20learning%20breakthrough&format=llm&limit=1" \
+curl -X GET "https://api-app.membit.ai/posts/search?q=blockchain&limit=1" \
   -H "X-Membit-Api-Key: YOUR_API_KEY"
 ```
 
@@ -313,21 +313,31 @@ curl -X GET "https://api-app.membit.ai/posts/search?q=machine%20learning%20break
 {
   "posts": [
     {
-      "id": 237595,
-      "uuid": "3c756e1b-e16e-4259-87ef-d2fd22ad9402",
+      "id": 239012,
+      "uuid": "0ca539f8-45d0-0e63-981e-3852bce72379",
       "author": {
-        "handle": "@TheCryptoLark",
-        "name": "Lark Davis",
-        "profile_image": "https://img.membit.ai/v2/a46be407-f859-c259-5ec2-1764e1c9a7ab.jpeg"
+        "handle": "@TrustlessState",
+        "name": "David Hoffman",
+        "profile_image": "https://img.membit.ai/v2/6912825a-d421-2b4a-2f45-ad3eaadbd97c.jpeg"
       },
-      "content": "$ETH just broke through $4,700.\n\nJust 3.6% away from making new all-time highs.\n\nCan it hit a new all-time high today?",
-      "url": "https://x.com/TheCryptoLark/status/1955576709610152286",
-      "mentioned": null,
-      "timestamp": "2025-08-13T10:26:35Z",
+      "content": "Every few years we try out the public vs private chain thesis \n\nEvery time we learn the same lesson\n\nEthereum",
+      "url": "https://x.com/TrustlessState/status/1955462168352297121",
+      "mentioned": {
+        "id": 29481,
+        "uuid": "a024f4de-498a-8ddb-dbae-c0514428f991",
+        "author": {
+          "handle": "@CamiRusso",
+          "name": "Camila Russo",
+          "profile_image": "https://img.membit.ai/v2/a3fd6747-e064-e204-89eb-a3b94c546fa4.jpeg"
+        },
+        "content": "SO, what happens with Stripe and Circle chains? \n\nDo they end up becoming the world's payments rails, or do they fade into irrelevance and capitulate to issuing their stablecoins in established networks?",
+        "timestamp": "2025-08-12T15:40:15Z"
+      },
+      "timestamp": "2025-08-13T02:51:26Z",
       "is_substantive": true,
-      "engagement": { "likes": 1000, "replies": 117, "retweets": 130 },
-      "search_score": 0.31586811004712456,
-      "cluster_label": "$ETH Price Surge"
+      "engagement": { "likes": 389, "replies": 29, "retweets": 25 },
+      "search_score": 0.3715041809563351,
+      "cluster_label": "Circle Arc Blockchain Launch"
     }
   ]
 }
@@ -336,19 +346,24 @@ curl -X GET "https://api-app.membit.ai/posts/search?q=machine%20learning%20break
 When `format=llm`, returns a formatted text response optimized for language models:
 
 ```text
-Here are raw social posts for your query "machine learning breakthrough":
+Here are raw social posts for your query "blockchain":
 
 ---
 
-**URL**: https://x.com/TheCryptoLark/status/1955576709610152286
-**Post Time**: 2025-08-13 10:26:35+00:00
-**Author**: Lark Davis (@TheCryptoLark)
-**Engagement**: Likes=1000, Replies=117, Retweets=130
-**Content**: $ETH just broke through $4,700.
+**URL**: https://x.com/TrustlessState/status/1955462168352297121
+**Post Time**: 2025-08-13 02:51:26+00:00
+**Author**: David Hoffman (@TrustlessState)
+**Engagement**: Likes=389, Replies=29, Retweets=25
+**Content**: Every few years we try out the public vs private chain thesis
 
-Just 3.6% away from making new all-time highs.
+Every time we learn the same lesson
 
-Can it hit a new all-time high today?
+Ethereum
+
+> **Mentioned a Post** by Camila Russo (@CamiRusso):
+> SO, what happens with Stripe and Circle chains?
+>
+> Do they end up becoming the world's payments rails, or do they fade into irrelevance and capitulate to issuing their stablecoins in established networks?
 
 ---
 
@@ -454,3 +469,7 @@ Relevance to search query (≥ 0)
 </ResponseField>
 
 ---
+
+```
+
+```
