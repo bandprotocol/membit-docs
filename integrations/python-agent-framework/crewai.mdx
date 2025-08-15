@@ -177,28 +177,6 @@ if __name__ == "__main__":
 ```
 </CodeGroup>
 
-## Best Practices
-
-<Card title="Agent Role Design" icon="users">
-- Create specialized agents for different aspects of social media analysis
-- Use `cluster_search` agents for trend discovery
-- Use `cluster_info` agents for deep conversation analysis
-- Use `post_search` agents for specific content research
-</Card>
-
-<Card title="Task Orchestration" icon="list-check">
-- Chain tasks logically: discovery → analysis → content research
-- Use clear task descriptions that specify which Membit tools to use
-- Set realistic expected outputs for each task
-- Enable verbose mode during development for debugging
-</Card>
-
-<Card title="MCP Connection Management" icon="network-wired">
-- Always use the context manager (`with MCPServerAdapter`) for proper resource management
-- Handle connection failures gracefully in production
-- Verify your MCP URL and credentials before running crews
-</Card>
-
 ## Troubleshooting
 
 <AccordionGroup>

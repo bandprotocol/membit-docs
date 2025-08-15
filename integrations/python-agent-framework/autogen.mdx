@@ -184,26 +184,6 @@ if __name__ == "__main__":
 ```
 </CodeGroup>
 
-## Best Practices
-
-<Card title="Agent System Messages" icon="message">
-- Create clear, specific system messages that guide agents to use appropriate Membit tools
-- Specify which tool to use for different types of analysis
-- Include instructions about source attribution and URL inclusion
-</Card>
-
-<Card title="Workbench Management" icon="wrench">
-- Always use async context managers (`async with McpWorkbench`) for proper resource management
-- List available tools at startup to verify connection
-- Handle connection timeouts with appropriate read_timeout_seconds values
-</Card>
-
-<Card title="Multi-Agent Coordination" icon="users">
-- Assign specialized roles to different agents (trend discovery, analysis, content research)
-- Use RoundRobinGroupChat for coordinated multi-agent analysis
-- Enable tool reflection with `reflect_on_tool_use=True` for better tool usage
-</Card>
-
 ## Troubleshooting
 
 <AccordionGroup>
