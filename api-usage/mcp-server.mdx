@@ -39,54 +39,58 @@ Run the server locally if you prefer.
 
 Provide your key in one of two ways:
 
-- Environment variable (recommended):
+**Environment variable (recommended):**
+
+Create a `.env` file in the project root:
 
 ```bash
-export MEMBIT_API_KEY=<your-api-key>
+MEMBIT_API_KEY=<your-api-key>
 ```
 
-- HTTP header (useful for direct HTTP testing):
+**HTTP header (useful for direct HTTP testing):**
 
 ```bash
 curl -H 'X-Membit-Api-Key: <your-api-key>' http://localhost:8000/mcp
 ```
 
-### Use with Docker
+### Installation Guide
 
-If you prefer using Docker, you can build and run the Membit MCP server in a container:
+#### Clone from Git
 
-1. Build the Docker image:
-
-   ```bash
-   docker build -t membit-mcp .
-   ```
-
-2. Run the container:
-
-   ```bash
-   # Option 1: Using environment variable
-   docker run -p 8000:8000 -e MEMBIT_API_KEY=<your-api-key> membit-mcp
-
-   # Option 2: Use HTTP header when making requests
-   docker run -p 8000:8000 membit-mcp
-   # Then use: curl -H 'X-Membit-Api-Key: <your-api-key>' http://localhost:8000/mcp
-   ```
-
-### Local Installation
-
+<Steps>
+<Step title="Clone the Repository">
 ```bash
 git clone https://github.com/bandprotocol/membit-mcp.git
 cd membit-mcp
+```
+</Step>
+
+<Step title="Choose Installation Method">
+**Option 1: Direct Installation**
+
+```bash
 uv sync
 uv run src/membit_mcp/server.py
 ```
 
-## How It Works
+**Option 2: Docker Installation**
 
-The server exposes these MCP tools (via the Membit Python SDK):
+Build the Docker image:
 
-- **clusters_search**: Calls `AsyncMembitClient.cluster_search(query, limit)`
-- **clusters_info**: Calls `AsyncMembitClient.cluster_info(label, limit)`
-- **posts_search**: Calls `AsyncMembitClient.post_search(query, limit)`
+```bash
+docker build -t membit-mcp .
+```
 
-Responses are returned as LLM-friendly text for easy consumption.
+Run the container:
+
+```bash
+# Using environment variable
+docker run -p 8000:8000 -e MEMBIT_API_KEY=<your-api-key> membit-mcp
+
+# Using HTTP header
+docker run -p 8000:8000 membit-mcp
+# Then use: curl -H 'X-Membit-Api-Key: <your-api-key>' http://localhost:8000/mcp
+```
+
+</Step>
+</Steps>
