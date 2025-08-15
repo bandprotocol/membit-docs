@@ -59,8 +59,13 @@ params = StdioServerParams(
     command="npx",
     args=[
         "mcp-remote",
-        "https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${API_KEY}",
     ],
+    env={
+        "API_KEY": <your-api-key>,
+    },
     read_timeout_seconds=60,
 )
 ```
@@ -138,9 +143,14 @@ async def main() -> None:
         command="npx",
         args=[
             "mcp-remote",
-            # Replace `<your-api-key>` with your actual Membit API key.
-            "https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>",
+            "https://mcp.membit.ai/mcp",
+            "--header",
+            "X-Membit-Api-Key:${API_KEY}",
         ],
+        env={
+            # Replace `<your-api-key>` with your actual Membit API key.
+            "API_KEY": <your-api-key>,
+        },
         read_timeout_seconds=60,
     )
     

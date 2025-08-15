@@ -38,6 +38,7 @@ First, import the necessary components from LlamaIndex:
 
 ```python
 from llama_index.tools.mcp import (
+    BasicMCPClient,
     get_tools_from_mcp_url,
     aget_tools_from_mcp_url,
 )
@@ -53,15 +54,47 @@ Connect to Membit's MCP server to retrieve available tools:
 <Tabs>
 <Tab title="Async">
 ```python
+# Create MCP Client
+mcp_client = BasicMCPClient(
+    command_or_url="npx",
+    args=[
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${API_KEY}",
+    ],
+    env={
+        "API_KEY": <your-api-key>,
+    },
+)
 # Async method
-tools = await aget_tools_from_mcp_url("https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>")
+tools = await aget_tools_from_mcp_url(
+    "",
+    client=mcp_client,
+)
 ```
 </Tab>
 
 <Tab title="Sync">
 ```python
+# Create MCP Client
+mcp_client = BasicMCPClient(
+    command_or_url="npx",
+    args=[
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${API_KEY}",
+    ],
+    env={
+        "API_KEY": <your-api-key>,
+    },
+)
 # Synchronous method
-tools = get_tools_from_mcp_url("https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>")
+tools = get_tools_from_mcp_url(
+    "",
+    client=mcp_client,
+)
 ```
 </Tab>
 </Tabs>
@@ -120,9 +153,26 @@ from llama_index.llms.openai import OpenAI
 from llama_index.tools.mcp import aget_tools_from_mcp_url
 
 async def main():
+    # Create MCP client
+    mcp_client = BasicMCPClient(
+        command_or_url="npx",
+        args=[
+            "mcp-remote",
+            "https://mcp.membit.ai/mcp",
+            "--header",
+            "X-Membit-Api-Key:${API_KEY}",
+        ],
+        env={
+            # Replace `<your-api-key>` with your actual Membit API key.
+            "API_KEY": <your-api-key>,
+        },
+    )
+
     # Get Membit tools
-    # Replace `<your-api-key>` with your actual Membit API key.
-    tools = await aget_tools_from_mcp_url("https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>")
+    tools = await aget_tools_from_mcp_url(
+        "",
+        client=mcp_client,
+    )
     
     # Initialize LLM
     llm = OpenAI(model="gpt-4o-mini")

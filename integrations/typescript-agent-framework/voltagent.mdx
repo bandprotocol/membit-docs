@@ -53,9 +53,17 @@ Set up the MCP configuration to connect to Membit's tools:
 const mcpConfig = new MCPConfiguration({
   servers: {
     membit: {
-      type: "streamable-http",
-      url: "https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>",
-      timeout: 15000, // Optional: Request timeout in milliseconds
+      type: "stdio",
+      command: "npx",
+      env: {
+        API_KEY: <your-api-key>,
+      },
+      args: [
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${API_KEY}",
+      ],
     },
   },
 });
@@ -117,10 +125,17 @@ import { openai } from "@ai-sdk/openai";
 const mcpConfig = new MCPConfiguration({
   servers: {
     membit: {
-      type: "streamable-http",
-      // Replace `<your-api-key>` with your actual Membit API key.
-      url: "https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>",
-      timeout: 15000,
+      type: "stdio",
+      command: "npx",
+      env: {
+        API_KEY: <your-api-key>,
+      },
+      args: [
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${API_KEY}",
+      ],
     },
   },
 });
@@ -172,7 +187,7 @@ const voltAgent = new VoltAgent({
 **Problem**: Cannot connect to Membit MCP server
 
 **Solutions**:
-- Verify your `MEMBIT_REMOTE_MCP_URL`
+- Verify your API key
 - Check network connectivity and firewall settings
 - Ensure the streamable HTTP endpoint is accessible
 - Try increasing the timeout value in MCPConfiguration

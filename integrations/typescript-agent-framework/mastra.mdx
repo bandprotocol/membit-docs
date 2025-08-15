@@ -57,9 +57,14 @@ export const mcp = new MCPClient({
   servers: {
     membit: {
       command: "npx",
+      env: {
+        API_KEY: <your-api-key>,
+      },
       args: [
         "mcp-remote",
-        "https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>"
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${API_KEY}",
       ],
     },
   },
@@ -121,10 +126,15 @@ export const mcp = new MCPClient({
   servers: {
     membit: {
       command: "npx",
+      env: {
+        // Replace `<your-api-key>` with your actual Membit API key.
+        API_KEY: <your-api-key>,
+      },
       args: [
         "mcp-remote",
-        // Replace `<your-api-key>` with your actual Membit API key.
-        "https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>"
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${API_KEY}",
       ],
     },
   },
