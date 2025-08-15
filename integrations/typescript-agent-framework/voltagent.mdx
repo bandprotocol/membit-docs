@@ -1,12 +1,195 @@
 ---
 title: "VoltAgent"
-description: "Learn how to integrate Membit with VoltAgent."
+description: "Integrate Membit's real-time social context into your VoltAgent agents and workflows using MCP tools."
 icon: "voltagent"
 ---
 
-Welcome to the Membit and VoltAgent integration guide. This section will provide you with all the information you need to connect Membit's real-time context to your VoltAgent agents.
+Enhance your VoltAgent applications with real-time social media context from Membit. This integration allows your AI agents to access up-to-the-minute discussions, trends, and insights from platforms like X (Twitter), Farcaster, and more.
 
-<Info>
-  This documentation is currently under development. Please check back soon for
-  more details.
-</Info>
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- Node.js 20 or higher installed
+- A Membit account with API access
+- Basic familiarity with VoltAgent agents and workflows
+- TypeScript knowledge (recommended)
+
+<Warning>
+You'll need valid Membit API credentials and the MCP remote URL. If you don't have access yet, [get your API key](/access-and-auth) to get started.
+</Warning>
+
+## Installation
+
+Install the required packages for VoltAgent and MCP integration:
+
+```bash
+# Install VoltAgent core packages
+npm install @voltagent/core
+```
+
+<Tip>
+VoltAgent works best with TypeScript and structured logging. Make sure your project is configured accordingly.
+</Tip>
+
+## Quick Start
+
+<Steps>
+<Step title="Import required modules">
+Import the necessary components for VoltAgent and MCP integration:
+
+```typescript
+import { VoltAgent, Agent, MCPConfiguration } from "@voltagent/core";
+import { createPinoLogger } from "@voltagent/logger";
+import { VercelAIProvider } from "@voltagent/vercel-ai";
+import { openai } from "@ai-sdk/openai";
+```
+</Step>
+
+<Step title="Configure MCP connection">
+Set up the MCP configuration to connect to Membit's tools:
+
+```typescript
+const mcpConfig = new MCPConfiguration({
+  servers: {
+    membit: {
+      type: "stdio",
+      command: "npx",
+      env: {
+        MEMBIT_API_KEY: <your-api-key>,
+      },
+      args: [
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+      ],
+    },
+  },
+});
+```
+
+<Note>
+VoltAgent supports streamable HTTP transport for efficient MCP connections.
+</Note>
+
+<Warning>
+Replace `<your-api-key>` with your actual Membit API key. Keep this credential secure and don't share it with unauthorized users.
+</Warning>
+</Step>
+
+<Step title="Create your Membit-powered agent">
+Create a VoltAgent agent with Membit tools:
+
+```typescript
+const membitAgent = new Agent({
+  name: "social-media-analyst",
+  instructions: "You are a social media analyst with access to real-time data. Use cluster_search to find trending discussions, cluster_info for detailed analysis, and post_search for specific posts.",
+  llm: new VercelAIProvider(),
+  model: openai("gpt-4o-mini"),
+  tools: await mcpConfig.getTools(),
+});
+```
+</Step>
+
+<Step title="Initialize VoltAgent system">
+Create the VoltAgent system with your agent:
+
+```typescript
+// Initialize VoltAgent with your agent(s)
+new VoltAgent({
+  agents: {
+    membitAgent,
+  },
+});
+```
+
+<Check>
+Your VoltAgent is now powered by real-time social media context from Membit!
+</Check>
+</Step>
+</Steps>
+
+## Complete Example
+
+Here's a full working example that demonstrates the integration:
+
+<CodeGroup>
+```typescript Basic Integration
+import { VoltAgent, Agent, MCPConfiguration } from "@voltagent/core";
+import { createPinoLogger } from "@voltagent/logger";
+import { VercelAIProvider } from "@voltagent/vercel-ai";
+import { openai } from "@ai-sdk/openai";
+
+// Configure MCP connection to Membit
+const mcpConfig = new MCPConfiguration({
+  servers: {
+    membit: {
+      type: "stdio",
+      command: "npx",
+      env: {
+        MEMBIT_API_KEY: <your-api-key>,
+      },
+      args: [
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+      ],
+    },
+  },
+});
+
+// Create Membit-powered agent
+const socialAnalyst = new Agent({
+  name: "membit-social-analyst",
+  instructions: `You are an expert social media analyst with access to real-time trending data. 
+  Use cluster_search to find trending discussions, cluster_info to dive deeper into specific conversations, 
+  and post_search to find individual posts. Always provide context and source URLs.`,
+  llm: new VercelAIProvider(),
+  model: openai("gpt-4o-mini"),
+  tools: await mcpConfig.getTools(),
+});
+
+// Initialize VoltAgent
+const voltAgent = new VoltAgent({
+  agents: {
+    socialAnalyst,
+  },
+});
+```
+</CodeGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="MCP Connection Issues">
+**Problem**: Cannot connect to Membit MCP server
+
+**Solutions**:
+- Verify your API key
+- Check network connectivity and firewall settings
+- Ensure the streamable HTTP endpoint is accessible
+- Try increasing the timeout value in MCPConfiguration
+</Accordion>
+
+<Accordion title="Tool Loading Failures">
+**Problem**: `mcpConfig.getTools()` returns empty or fails
+
+**Solutions**:
+- Ensure MCP configuration is correct with proper server settings
+- Check that the Membit API key is valid
+- Verify the MCP server URL is accessible
+- Try initializing the MCP config in a try-catch block
+</Accordion>
+
+<Accordion title="Workflow Execution Issues">
+**Problem**: Workflows fail or don't execute properly
+
+**Solutions**:
+- Check agent dependencies and execution order
+- Verify all required agents are properly registered
+- Use structured logging to debug workflow steps
+- Ensure agents have access to required tools
+</Accordion>
+</AccordionGroup>

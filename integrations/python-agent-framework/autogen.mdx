@@ -1,12 +1,219 @@
 ---
 title: "AutoGen"
-description: "Learn how to integrate Membit with AutoGen."
+description: "Integrate Membit's real-time social context into your AutoGen agents and multi-agent systems using MCP tools."
 icon: "autogen"
 ---
 
-Welcome to the Membit and AutoGen integration guide. This section will provide you with all the information you need to connect Membit's real-time context to your AutoGen agents.
+Enhance your AutoGen applications with real-time social media context from Membit. This integration allows your AI agents to access up-to-the-minute discussions, trends, and insights from platforms like X (Twitter), Farcaster, and more.
 
-<Info>
-  This documentation is currently under development. Please check back soon for
-  more details.
-</Info>
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- Python 3.10 or higher installed
+- A Membit account with API access
+- Basic familiarity with AutoGen agents
+- Node.js installed (for MCP remote client)
+
+<Warning>
+You'll need valid Membit API credentials and the MCP remote URL. If you don't have access yet, [get your API key](/access-and-auth) to get started.
+</Warning>
+
+## Installation
+
+Install the required packages for AutoGen and MCP integration:
+
+```bash
+# Install AutoGen with MCP tools
+pip install autogenstudio
+
+# Install MCP remote client (requires Node.js)
+npm install -g mcp-remote
+```
+
+<Tip>
+We recommend using a virtual environment to manage your Python dependencies and avoid conflicts.
+</Tip>
+
+## Quick Start
+
+<Steps>
+<Step title="Import required modules">
+Import the necessary components for AutoGen and MCP integration:
+
+```python
+import asyncio
+
+from autogen_agentchat.agents import AssistantAgent
+from autogen_agentchat.ui import Console
+from autogen_ext.models.openai import OpenAIChatCompletionClient
+from autogen_ext.tools.mcp import McpWorkbench, StdioServerParams
+```
+</Step>
+
+<Step title="Configure MCP server parameters">
+Set up the connection to Membit's MCP server:
+
+```python
+params = StdioServerParams(
+    command="npx",
+    args=[
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+    ],
+    env={
+        "MEMBIT_API_KEY": <your-api-key>,
+    },
+    read_timeout_seconds=60,
+)
+```
+
+<Note>
+Make sure you have `mcp-remote` installed globally via npm for this to work.
+</Note>
+
+<Warning>
+Replace `<your-api-key>` with your actual Membit API key. Keep this credential secure and don't share it with unauthorized users.
+</Warning>
+</Step>
+
+<Step title="Initialize your model client">
+Set up your language model client:
+
+```python
+model_client = OpenAIChatCompletionClient(model="gpt-4o-mini")
+```
+</Step>
+
+<Step title="Create your Membit-powered agent">
+Use McpWorkbench to connect Membit tools to your AutoGen agent:
+
+```python
+async with McpWorkbench(server_params=params) as workbench:
+    # List available tools
+    tools = await workbench.list_tools()
+    
+    # Create assistant agent with Membit tools
+    agent = AssistantAgent(
+        "membit_assistant",
+        model_client=model_client,
+        workbench=workbench,
+        reflect_on_tool_use=True,
+        model_client_stream=True,
+        system_message="You are a social media analyst with access to real-time data. Use Membit tools to analyze trending discussions and provide insights.",
+    )
+```
+</Step>
+
+<Step title="Run your agent">
+Execute your agent with a social media analysis task:
+
+```python
+    await Console(
+        agent.run_stream(
+            task="What are the most trending discussions about AI today? Use cluster_search to find hot topics and provide insights with URLs."
+        )
+    )
+```
+
+<Check>
+Your AutoGen agent is now powered by real-time social media context from Membit!
+</Check>
+</Step>
+</Steps>
+
+## Complete Example
+
+Here's a full working example that demonstrates the integration:
+
+<CodeGroup>
+```python Basic Integration
+import asyncio
+
+from autogen_agentchat.agents import AssistantAgent
+from autogen_agentchat.ui import Console
+from autogen_ext.models.openai import OpenAIChatCompletionClient
+from autogen_ext.tools.mcp import McpWorkbench, StdioServerParams
+
+async def main() -> None:
+    # Configure MCP server connection
+    params = StdioServerParams(
+        command="npx",
+        args=[
+            "mcp-remote",
+            "https://mcp.membit.ai/mcp",
+            "--header",
+            "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+        ],
+        env={
+            # Replace `<your-api-key>` with your actual Membit API key.
+            "MEMBIT_API_KEY": <your-api-key>,
+        },
+        read_timeout_seconds=60,
+    )
+    
+    # Initialize model client
+    model_client = OpenAIChatCompletionClient(model="gpt-4o-mini")
+
+    # Create and run agent with Membit tools
+    async with McpWorkbench(server_params=params) as workbench:
+        tools = await workbench.list_tools()
+        print("Available Membit Tools:")
+        for tool in tools:
+            print(f"- {tool.name}: {tool.description}")
+        
+        agent = AssistantAgent(
+            "membit_assistant",
+            model_client=model_client,
+            workbench=workbench,
+            reflect_on_tool_use=True,
+            model_client_stream=True,
+            system_message="You are a helpful social media analyst. Use cluster_search to find trending topics, cluster_info for detailed analysis, and post_search for specific posts.",
+        )
+        
+        await Console(
+            agent.run_stream(
+                task="What are the most trending discussions today related to Bitcoin? Use cluster_search to find hot topics and provide the best conversations to follow with URLs."
+            )
+        )
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+</CodeGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="MCP Connection Issues">
+**Problem**: Cannot connect to Membit MCP server
+
+**Solutions**:
+- Verify `mcp-remote` is installed: `npm list -g mcp-remote`
+- Check your API key is correct
+- Ensure Node.js is properly installed and accessible
+- Increase `read_timeout_seconds` if experiencing timeouts
+</Accordion>
+
+<Accordion title="Workbench Tool Loading">
+**Problem**: McpWorkbench fails to load tools
+
+**Solutions**:
+- Verify MCP server parameters are correct
+- Check network connectivity and firewall settings
+- Ensure your Membit API credentials are valid
+- Try listing tools first to verify connection: `await workbench.list_tools()`
+</Accordion>
+
+<Accordion title="Agent Tool Usage Issues">
+**Problem**: Agents don't use Membit tools effectively
+
+**Solutions**:
+- Make system messages more explicit about tool usage
+- Enable `reflect_on_tool_use=True` for better tool reasoning
+- Use `model_client_stream=True` for real-time feedback
+- Test with simpler, more direct task descriptions
+</Accordion>
+</AccordionGroup>

@@ -1,12 +1,233 @@
 ---
 title: "LlamaIndex"
-description: "Learn how to integrate Membit with LlamaIndex."
+description: "Integrate Membit's real-time social context into your LlamaIndex agents and applications using MCP tools."
 icon: "llamaindex"
 ---
 
-Welcome to the Membit and LlamaIndex integration guide. This section will provide you with all the information you need to connect Membit's real-time context to your LlamaIndex applications.
+Enhance your LlamaIndex applications with real-time social media context from Membit. This integration allows your AI agents to access up-to-the-minute discussions, trends, and insights from platforms like X (Twitter), Farcaster, and more.
 
-<Info>
-  This documentation is currently under development. Please check back soon for
-  more details.
-</Info>
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- Python 3.10 or higher installed
+- A Membit account with API access
+- Basic familiarity with LlamaIndex agents
+
+<Warning>
+You'll need valid Membit API credentials. If you don't have access yet, [get your API key](/access-and-auth) to get started.
+</Warning>
+
+## Installation
+
+Install the required LlamaIndex MCP tools package:
+
+```bash
+pip install llama-index-tools-mcp
+```
+
+<Tip>
+We recommend using a virtual environment to manage your dependencies and avoid conflicts.
+</Tip>
+
+## Quick Start
+
+<Steps>
+<Step title="Import the required modules">
+First, import the necessary components from LlamaIndex:
+
+```python
+from llama_index.tools.mcp import (
+    BasicMCPClient,
+    get_tools_from_mcp_url,
+    aget_tools_from_mcp_url,
+)
+from llama_index.core.agent import ReActAgent
+from llama_index.core.memory import ChatMemoryBuffer
+from llama_index.llms.openai import OpenAI
+```
+</Step>
+
+<Step title="Get Membit tools from MCP server">
+Connect to Membit's MCP server to retrieve available tools:
+
+<Tabs>
+<Tab title="Async">
+```python
+# Create MCP Client
+mcp_client = BasicMCPClient(
+    command_or_url="npx",
+    args=[
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+    ],
+    env={
+        "MEMBIT_API_KEY": <your-api-key>,
+    },
+)
+# Async method
+tools = await aget_tools_from_mcp_url(
+    "",
+    client=mcp_client,
+)
+```
+</Tab>
+
+<Tab title="Sync">
+```python
+# Create MCP Client
+mcp_client = BasicMCPClient(
+    command_or_url="npx",
+    args=[
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+    ],
+    env={
+        "MEMBIT_API_KEY": <your-api-key>,
+    },
+)
+# Synchronous method
+tools = get_tools_from_mcp_url(
+    "",
+    client=mcp_client,
+)
+```
+</Tab>
+</Tabs>
+
+<Warning>
+Replace `<your-api-key>` with your actual Membit API key. Keep this credential secure and don't share it with unauthorized users.
+</Warning>
+</Step>
+
+<Step title="Create and configure your agent">
+Set up a LlamaIndex ReAct agent with Membit tools:
+
+```python
+# Initialize your LLM
+llm = OpenAI(model="gpt-4o-mini")
+
+# Create the agent with Membit tools
+agent = ReActAgent(
+    tools=tools,
+    llm=llm,
+    memory=ChatMemoryBuffer.from_defaults(),
+    verbose=True,
+)
+```
+
+<Check>
+Your agent is now ready to access real-time social media context through Membit!
+</Check>
+</Step>
+
+<Step title="Query your agent">
+Start asking questions that leverage real-time social data:
+
+```python
+response = agent.query(
+    "Use cluster_search to find trending Bitcoin discussions today, "
+    "then use cluster_info to get details about the most interesting cluster."
+)
+
+print(response)
+```
+</Step>
+</Steps>
+
+## Complete Example
+
+Here's a full working example that demonstrates the integration:
+
+<CodeGroup>
+```python Basic Integration
+import asyncio
+
+from llama_index.core.agent import ReActAgent
+from llama_index.core.memory import ChatMemoryBuffer
+from llama_index.llms.openai import OpenAI
+from llama_index.tools.mcp import aget_tools_from_mcp_url
+
+async def main():
+    # Create MCP client
+    mcp_client = BasicMCPClient(
+        command_or_url="npx",
+        args=[
+            "mcp-remote",
+            "https://mcp.membit.ai/mcp",
+            "--header",
+            "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+        ],
+        env={
+            # Replace `<your-api-key>` with your actual Membit API key.
+            "MEMBIT_API_KEY": <your-api-key>,
+        },
+    )
+
+    # Get Membit tools
+    tools = await aget_tools_from_mcp_url(
+        "",
+        client=mcp_client,
+    )
+    
+    # Initialize LLM
+    llm = OpenAI(model="gpt-4o-mini")
+    
+    # Create agent
+    agent = ReActAgent(
+        tools=tools,
+        llm=llm,
+        memory=ChatMemoryBuffer.from_defaults(),
+        verbose=True,
+    )
+    
+    # Query for trending crypto discussions
+    response = await agent.aquery(
+        "What are the most trending discussions about Bitcoin today? "
+        "Use cluster_search to find the hottest topics and give me insights."
+    )
+    
+    print(response)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+</CodeGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Connection Issues">
+**Problem**: Cannot connect to Membit MCP server
+
+**Solutions**:
+- Verify your Membit MCP URL is correct
+- Check your network connection and firewall settings
+- Ensure your API credentials are valid and not expired
+- Try the synchronous method if async isn't working
+</Accordion>
+
+<Accordion title="No Results Returned">
+**Problem**: Queries return empty or limited results
+
+**Solutions**:
+- Make your search terms more general or use synonyms
+- Check if the topic is currently being discussed on social media
+- Verify your search timeframe isn't too restrictive
+- Try different query phrasings
+</Accordion>
+
+<Accordion title="Performance Issues">
+**Problem**: Slow response times or timeouts
+
+**Solutions**:
+- Use async methods for better performance
+- Implement caching for frequently requested data
+- Optimize your query complexity
+- Check your internet connection stability
+</Accordion>
+</AccordionGroup>

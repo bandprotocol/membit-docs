@@ -1,12 +1,202 @@
 ---
 title: "Mastra"
-description: "Learn how to integrate Membit with Mastra."
+description: "Integrate Membit's real-time social context into your Mastra agents using MCP tools."
 icon: "mastra"
 ---
 
-Welcome to the Membit and Mastra integration guide. This section will provide you with all the information you need to connect Membit's real-time context to your Mastra agents.
+Enhance your Mastra applications with real-time social media context from Membit. This integration allows your AI agents to access up-to-the-minute discussions, trends, and insights from platforms like X (Twitter), Farcaster, and more.
 
-<Info>
-  This documentation is currently under development. Please check back soon for
-  more details.
-</Info>
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- Node.js 20 or higher installed
+- A Membit account with API access
+- Basic familiarity with Mastra agents
+- TypeScript knowledge (recommended)
+
+<Warning>
+You'll need valid Membit API credentials and the MCP remote URL. If you don't have access yet, [get your API key](/access-and-auth) to get started.
+</Warning>
+
+## Installation
+
+Install the required packages for Mastra and MCP integration:
+
+```bash
+# Install Mastra with MCP support
+npm install @mastra/mcp@latest
+
+# Install MCP remote client
+npm install -g mcp-remote
+```
+
+<Tip>
+Mastra works best with TypeScript. Make sure your project is configured for TypeScript development.
+</Tip>
+
+## Quick Start
+
+<Steps>
+<Step title="Import required modules">
+Import the necessary components for Mastra and MCP integration:
+
+```typescript
+import { openai } from "@ai-sdk/openai";
+import { Agent } from '@mastra/core/agent';
+import { LibSQLStore } from '@mastra/libsql';
+import { MCPClient } from "@mastra/mcp";
+```
+</Step>
+
+<Step title="Initialize MCP client">
+Create an MCP client to connect to Membit's tools:
+
+```typescript
+export const mcp = new MCPClient({
+  servers: {
+    membit: {
+      command: "npx",
+      env: {
+        MEMBIT_API_KEY: <your-api-key>,
+      },
+      args: [
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+      ],
+    },
+  },
+});
+```
+
+<Note>
+Make sure you have `mcp-remote` installed globally via npm for this to work.
+</Note>
+
+<Warning>
+Replace `<your-api-key>` with your actual Membit API key. Keep this credential secure and don't share it with unauthorized users.
+</Warning>
+</Step>
+
+<Step title="Create your Membit-powered agent">
+Create a Mastra agent with Membit tools and memory:
+
+```typescript
+export const membitAgent = new Agent({
+  name: 'Social Media Analyst',
+  instructions: `You are a social media analyst with access to real-time data. Use cluster_search to find trending discussions, cluster_info for detailed analysis, and post_search for specific posts.`,
+  model: openai("gpt-4o-mini"),
+  tools: await mcp.getTools(),
+});
+```
+</Step>
+
+<Step title="Use your agent">
+Execute your agent with social media analysis tasks:
+
+```typescript
+const result = await membitAgent.generate(
+  "What are the most trending discussions about AI today? Use cluster_search to find hot topics and provide insights with URLs."
+);
+
+console.log(result.text);
+```
+
+<Check>
+Your Mastra agent is now powered by real-time social media context from Membit!
+</Check>
+</Step>
+</Steps>
+
+## Complete Example
+
+Here's a full working example that demonstrates the integration:
+
+<CodeGroup>
+```typescript Basic Integration
+import { openai } from "@ai-sdk/openai";
+import { Agent } from '@mastra/core/agent';
+import { LibSQLStore } from '@mastra/libsql';
+import { MCPClient } from "@mastra/mcp";
+
+// Initialize MCP client for Membit
+export const mcp = new MCPClient({
+  servers: {
+    membit: {
+      command: "npx",
+      env: {
+        // Replace `<your-api-key>` with your actual Membit API key.
+        MEMBIT_API_KEY: <your-api-key>,
+      },
+      args: [
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+      ],
+    },
+  },
+});
+
+// Create Membit-powered agent
+export const membitAgent = new Agent({
+  name: 'Membit Social Analyst',
+  instructions: `You are an expert social media analyst with access to real-time trending data. 
+  Use cluster_search to find trending discussions, cluster_info to dive deeper into specific conversations, 
+  and post_search to find individual posts. Always provide context and source URLs.`,
+  model: openrouter("anthropic/claude-3-5-sonnet-20241022"),
+  tools: await mcp.getTools(),
+});
+
+async function main() {
+  try {
+    const result = await membitAgent.generate(
+      "What are the most trending discussions today related to Bitcoin? Use cluster_search to find hot topics and provide the best conversations to follow with URLs."
+    );
+    
+    console.log("Analysis Results:");
+    console.log(result.text);
+  } catch (error) {
+    console.error("Error during analysis:", error);
+  }
+}
+
+main();
+```
+</CodeGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="MCP Connection Issues">
+**Problem**: Cannot connect to Membit MCP server
+
+**Solutions**:
+- Verify `mcp-remote` is installed: `npm list -g mcp-remote`
+- Check your API key
+- Ensure Node.js is properly installed and accessible
+- Test connectivity with `npx mcp-remote` directly
+</Accordion>
+
+<Accordion title="Tool Loading Failures">
+**Problem**: `mcp.getTools()` returns empty or fails
+
+**Solutions**:
+- Ensure MCP client is properly configured with correct server parameters
+- Check network connectivity and firewall settings
+- Verify your Membit API credentials are valid
+- Try initializing the MCP client in a try-catch block
+</Accordion>
+
+<Accordion title="Agent Generation Issues">
+**Problem**: Agents don't use Membit tools effectively
+
+**Solutions**:
+- Make agent instructions more explicit about tool usage
+- Test with simpler, more direct queries first
+- Check that tools are properly loaded: `console.log(await mcp.getTools())`
+- Verify the agent's memory storage is accessible
+</Accordion>
+</AccordionGroup>
