@@ -1,12 +1,137 @@
 ---
 title: "TypeScript SDK"
-description: "Learn how to use the Membit TypeScript SDK to access real-time context."
+description: "Use the Membit JavaScript/TypeScript SDK to access real-time context with strong typing and simple APIs."
 icon: "square-js"
 ---
 
-Welcome to the Membit TypeScript SDK documentation. This section will provide you with all the information you need to integrate Membit's real-time context into your TypeScript applications.
+Membit's JavaScript/TypeScript SDK provides a simple, strongly-typed interface to the Membit API. Add intelligent search and content discovery directly to your apps with first-class TypeScript support and automatic type inference.
 
-<Info>
-  This documentation is currently under development. Please check back soon for
-  more details.
-</Info>
+## Installing
+
+```bash
+npm i @bandprotocol/membit
+```
+
+## Membit Cluster Search
+
+Discover trending topics and clusters of related content. Ideal for understanding what's trending and grouping related discussions.
+
+### Usage
+
+```javascript
+const { membit } = require("@bandprotocol/membit");
+
+// Step 1. Instantiate the Membit client
+const client = membit({ apiKey: "<your-api-key>" });
+
+// Step 2. Execute a cluster search query
+const clusters = await client.cluster_search("artificial intelligence", {
+  limit: 3,
+});
+
+// Step 3. Done! You've performed a Membit Cluster Search
+console.log(clusters);
+```
+
+## Membit Cluster Info
+
+Fetch detailed information about a specific cluster. Use this to dive deeper into topics discovered via cluster search.
+
+### Usage
+
+```javascript
+const { membit } = require("@bandprotocol/membit");
+
+// Step 1. Instantiate the Membit client
+const client = membit({ apiKey: "<your-api-key>" });
+
+// Step 2. Get detailed cluster information
+const clusterInfo = await client.cluster_info("AI Learning Resources", {
+  limit: 5,
+  format: "json",
+});
+
+// Step 3. Print cluster details
+console.log("Cluster Info:", clusterInfo);
+```
+
+## Membit Post Search
+
+Search for individual posts across the Membit corpus. Perfect for finding specific content and examples.
+
+### Usage
+
+```javascript
+const { membit } = require("@bandprotocol/membit");
+
+// Step 1. Instantiate the Membit client
+const client = membit({ apiKey: "<your-api-key>" });
+
+// Step 2. Search for posts
+const posts = await client.post_search("machine learning", {
+  limit: 10,
+  format: "json",
+});
+
+// Step 3. Process the results
+console.log("Found posts:", posts);
+```
+
+## TypeScript Benefits
+
+### Method Overloads
+
+```typescript
+// TypeScript automatically infers return types
+const jsonData = await client.cluster_search("query"); // Record<string, any>
+const textData = await client.cluster_search("query", { format: "llm" }); // string
+```
+
+### Format Options
+
+| Format | Return Type           | Use Case                               | TypeScript Type |
+| ------ | --------------------- | -------------------------------------- | --------------- |
+| "json" | `Record<string, any>` | Structured data for further processing | Object          |
+| "llm"  | string                | Human-readable text for direct display | String          |
+
+### Configuration Options
+
+```typescript
+import { membit, MembitClientOptions } from "@bandprotocol/membit";
+
+const client = membit({
+  apiKey: "<your-api-key>", // Required (or set MEMBIT_API_KEY env var)
+  apiBaseURL: "https://custom.api", // Optional (defaults to Membit API)
+});
+
+// All methods support these options (showing defaults)
+const result = await client.cluster_search("query", {
+  limit: 10, // number (default: 10)
+  format: "json", // "json" | "llm" (default: "json")
+  timeout: 60, // seconds (default: 60)
+});
+```
+
+### Default Parameters
+
+All search methods use these defaults when options are not specified:
+
+- **limit**: 10 — Maximum number of results to return
+- **format**: "json" — Return structured data as objects
+- **timeout**: 60 — Request timeout in seconds
+
+## Environment Variables
+
+You can set your API key via environment variable:
+
+```bash
+export MEMBIT_API_KEY="<your-api-key>"
+```
+
+If `apiKey` is not provided in the client options, the SDK will automatically use `MEMBIT_API_KEY`.
+
+## Examples
+
+See the `examples/` directory for more comprehensive usage:
+
+- `examples/basic-usage.ts` — Complete workflow with realistic API usage

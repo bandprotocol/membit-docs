@@ -1,12 +1,96 @@
 ---
 title: "MCP Server"
-description: "Learn how to use Membit's MCP Server to integrate with AI agent frameworks."
+description: "Use Membit's Model Context Protocol (MCP) server to give AI agents real-time social context."
 icon: "cube"
 ---
 
-Welcome to the Membit MCP Server documentation. This section will provide you with all the information you need to integrate Membit with your favorite AI agent frameworks.
+Membit MCP Server connects your AI systems to live social insights via Membit's API. Using the Model Context Protocol (MCP), the server exposes tools that make up-to-the-minute social context—trending discussion clusters, raw posts, and more—available to your AI agents in Cursor, Claude Desktop, Goose, and any MCP-compatible client.
 
-<Info>
-  This documentation is currently under development. Please check back soon for
-  more details.
-</Info>
+## Remote MCP Server
+
+Connect Membit's remote MCP server directly without the need for local setup. This approach offers a streamlined experience that eliminates local installation and configuration requirements.
+
+Use the remote MCP server endpoint with your Membit API key:
+
+```text
+https://mcp.membit.ai/mcp
+```
+
+**Authentication**: The remote server requires your API key to be passed as an HTTP header `X-Membit-Api-Key: <your-api-key>`. The configurations below handle this automatically for each client.
+
+Obtain your [Membit API key](/access-and-auth).
+
+### Configuring Remote MCP Clients
+
+See platform-specific setup guides in the **Integrations** section.
+
+## Local MCP
+
+Run the server locally if you prefer.
+
+### Requirements
+
+- Membit API key ([get one](/access-and-auth))
+- Python 3.11+
+- An MCP client (e.g., Claude Desktop, Goose, Cursor)
+- Git (optional, if cloning)
+
+### API Key Configuration
+
+Provide your key in one of two ways:
+
+**Environment variable (recommended):**
+
+Create a `.env` file in the project root:
+
+```bash
+MEMBIT_API_KEY=<your-api-key>
+```
+
+**HTTP header (useful for direct HTTP testing):**
+
+```bash
+curl -H 'X-Membit-Api-Key: <your-api-key>' http://localhost:8000/mcp
+```
+
+### Installation Guide
+
+#### Clone from Git
+
+<Steps>
+<Step title="Clone the Repository">
+```bash
+git clone https://github.com/bandprotocol/membit-mcp.git
+cd membit-mcp
+```
+</Step>
+
+<Step title="Choose Installation Method">
+**Option 1: Direct Installation**
+
+```bash
+uv sync
+uv run src/membit_mcp/server.py
+```
+
+**Option 2: Docker Installation**
+
+Build the Docker image:
+
+```bash
+docker build -t membit-mcp .
+```
+
+Run the container:
+
+```bash
+# Using environment variable
+docker run -p 8000:8000 -e MEMBIT_API_KEY=<your-api-key> membit-mcp
+
+# Using HTTP header
+docker run -p 8000:8000 membit-mcp
+# Then use: curl -H 'X-Membit-Api-Key: <your-api-key>' http://localhost:8000/mcp
+```
+
+</Step>
+</Steps>

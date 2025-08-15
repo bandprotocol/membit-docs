@@ -1,12 +1,115 @@
 ---
 title: "Python SDK"
-description: "Learn how to use the Membit Python SDK to access real-time context."
+description: "Use the Membit Python SDK to access real-time social context with simple sync/async APIs."
 icon: "python"
 ---
 
-Welcome to the Membit Python SDK documentation. This section will provide you with all the information you need to integrate Membit's real-time context into your Python applications.
+Membit's Python SDK provides a simple interface to the Membit API. Add intelligent search and content discovery directly to your apps with sync and async support.
 
-<Info>
-  This documentation is currently under development. Please check back soon for
-  more details.
-</Info>
+## Installing
+
+```bash
+pip install membit-python
+```
+
+Or with uv:
+
+```bash
+uv add membit-python
+```
+
+## Membit Cluster Search
+
+Discover trending topics and clusters of related content. Ideal for understanding what's trending and grouping related discussions.
+
+### Usage
+
+```python
+from membit import MembitClient
+
+client = MembitClient(api_key="your_api_key_here")
+clusters = client.cluster_search("artificial intelligence", limit=3)
+print(clusters)
+```
+
+## Membit Cluster Info
+
+Fetch detailed information about a specific cluster. Use this to dive deeper into topics discovered via cluster search.
+
+### Usage
+
+```python
+from membit import MembitClient
+
+client = MembitClient(api_key="your_api_key_here")
+cluster_info = client.cluster_info("AI Learning Resources", limit=5, output_format="json")
+print("Cluster Info:", cluster_info)
+```
+
+## Membit Post Search
+
+Search for individual posts across the Membit corpus. Perfect for finding specific content and examples.
+
+### Usage
+
+```python
+from membit import MembitClient
+
+client = MembitClient(api_key="your_api_key_here")
+posts = client.post_search("machine learning", limit=10, output_format="json")
+print("Found posts:", posts)
+```
+
+## Async Support
+
+For applications that need high performance or handle multiple concurrent requests:
+
+```python
+import asyncio
+from membit import AsyncMembitClient
+
+async def analyze_topics():
+    client = AsyncMembitClient(api_key="your_api_key_here")
+
+    # Search for trending clusters asynchronously
+    clusters = await client.cluster_search("tech news", limit=5)
+
+    # Get detailed info for multiple clusters concurrently
+    if clusters.get("clusters"):
+        tasks = [
+            client.cluster_info(label=cluster["label"])
+            for cluster in clusters["clusters"]
+        ]
+        cluster_details = await asyncio.gather(*tasks)
+
+        for details in cluster_details:
+            print(details)
+
+# Run the async function
+asyncio.run(analyze_topics())
+```
+
+## Defaults and Configuration
+
+All search methods support these options (defaults shown):
+
+- **limit**: 10 — Maximum number of results to return
+- **output_format**: "json" — "json" for structured data, "llm" for text
+- **timeout**: 60 — Request timeout in seconds
+
+## Environment Variables
+
+You can set your API key via environment variable:
+
+```bash
+export MEMBIT_API_KEY="<your-api-key>"
+```
+
+If `api_key` is not provided to the client, the SDK will automatically use `MEMBIT_API_KEY`.
+
+## Examples
+
+Complete working examples are available in the `examples/` directory:
+
+- `examples/client.py` — Synchronous client usage
+- `examples/async_client.py` — Asynchronous client usage
