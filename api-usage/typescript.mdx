@@ -22,7 +22,7 @@ Discover trending topics and clusters of related content. Ideal for understandin
 const { membit } = require("@bandprotocol/membit");
 
 // Step 1. Instantiate the Membit client
-const client = membit({ apiKey: "your-api-key" });
+const client = membit({ apiKey: "<your-api-key>" });
 
 // Step 2. Execute a cluster search query
 const clusters = await client.cluster_search("artificial intelligence", {
@@ -43,7 +43,7 @@ Fetch detailed information about a specific cluster. Use this to dive deeper int
 const { membit } = require("@bandprotocol/membit");
 
 // Step 1. Instantiate the Membit client
-const client = membit({ apiKey: "your-api-key" });
+const client = membit({ apiKey: "<your-api-key>" });
 
 // Step 2. Get detailed cluster information
 const clusterInfo = await client.cluster_info("AI Learning Resources", {
@@ -65,7 +65,7 @@ Search for individual posts across the Membit corpus. Perfect for finding specif
 const { membit } = require("@bandprotocol/membit");
 
 // Step 1. Instantiate the Membit client
-const client = membit({ apiKey: "your-api-key" });
+const client = membit({ apiKey: "<your-api-key>" });
 
 // Step 2. Search for posts
 const posts = await client.post_search("machine learning", {
@@ -100,7 +100,7 @@ const textData = await client.cluster_search("query", { format: "llm" }); // str
 import { membit, MembitClientOptions } from "@bandprotocol/membit";
 
 const client = membit({
-  apiKey: "your-api-key", // Required (or set MEMBIT_API_KEY env var)
+  apiKey: "<your-api-key>", // Required (or set MEMBIT_API_KEY env var)
   apiBaseURL: "https://custom.api", // Optional (defaults to Membit API)
 });
 
@@ -125,7 +125,7 @@ All search methods use these defaults when options are not specified:
 You can set your API key via environment variable:
 
 ```bash
-export MEMBIT_API_KEY="your-api-key-here"
+export MEMBIT_API_KEY="<your-api-key>-here"
 ```
 
 If `apiKey` is not provided in the client options, the SDK will automatically use `MEMBIT_API_KEY`.

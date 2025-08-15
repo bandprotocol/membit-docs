@@ -8,15 +8,19 @@ Membit MCP Server connects your AI systems to live social insights via Membit's 
 
 ## Remote MCP Server
 
-Use the hosted remote MCP endpoint—no local setup required.
+Connect Membit's remote MCP server directly without the need for local setup. This approach offers a streamlined experience that eliminates local installation and configuration requirements.
+
+Use the remote MCP server endpoint with your Membit API key:
 
 ```text
-https://mcp.membit.ai/mcp/?membitApiKey=<your-api-key>
+https://mcp.membit.ai/mcp
 ```
 
-<Tip>Get your API key at [membit.ai](https://membit.ai).</Tip>
+**Authentication**: The remote server requires your API key to be passed as an HTTP header `X-Membit-Api-Key: <your-api-key>`. The configurations below handle this automatically for each client.
 
-### Configuring MCP Clients
+Obtain your [Membit API key](/access-and-auth).
+
+### Configuring Remote MCP Clients
 
 See platform-specific setup guides in the **Integrations** section.
 
@@ -26,7 +30,7 @@ Run the server locally if you prefer.
 
 ### Requirements
 
-- Membit API key ([get one](https://membit.ai))
+- Membit API key ([get one](/access-and-auth))
 - Python 3.11+
 - An MCP client (e.g., Claude Desktop, Goose, Cursor)
 - Git (optional, if cloning)
@@ -38,29 +42,35 @@ Provide your key in one of two ways:
 - Environment variable (recommended):
 
 ```bash
-export MEMBIT_API_KEY=your_api_key
+export MEMBIT_API_KEY=<your-api-key>
 ```
 
-- URL parameter (useful for direct HTTP testing):
+- HTTP header (useful for direct HTTP testing):
 
-```text
-http://localhost:8000/mcp?membitApiKey=your_api_key
+```bash
+curl -H 'X-Membit-Api-Key: <your-api-key>' http://localhost:8000/mcp
 ```
 
 ### Use with Docker
 
-Build and run with Docker:
+If you prefer using Docker, you can build and run the Membit MCP server in a container:
 
-```bash
-# Build image
-docker build -t membit-mcp .
+1. Build the Docker image:
 
-# Run with environment variable
-docker run -p 8000:8000 -e MEMBIT_API_KEY=your_api_key membit-mcp
+   ```bash
+   docker build -t membit-mcp .
+   ```
 
-# Or run without env and pass key via URL when calling
-# Then access: http://localhost:8000/mcp?membitApiKey=your_api_key
-```
+2. Run the container:
+
+   ```bash
+   # Option 1: Using environment variable
+   docker run -p 8000:8000 -e MEMBIT_API_KEY=<your-api-key> membit-mcp
+
+   # Option 2: Use HTTP header when making requests
+   docker run -p 8000:8000 membit-mcp
+   # Then use: curl -H 'X-Membit-Api-Key: <your-api-key>' http://localhost:8000/mcp
+   ```
 
 ### Local Installation
 

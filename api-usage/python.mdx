@@ -78,7 +78,7 @@ async def analyze_topics():
     if clusters.get("clusters"):
         tasks = [
             client.cluster_info(label=cluster["label"])
-            for cluster in clusters["clusters"][:3]
+            for cluster in clusters["clusters"]
         ]
         cluster_details = await asyncio.gather(*tasks)
 

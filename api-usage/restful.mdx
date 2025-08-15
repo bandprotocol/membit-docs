@@ -11,10 +11,10 @@ Execute searches and retrieve real-time social context from Membit: search trend
 All API endpoints require authentication using an API key. Send your API key in the header:
 
 ```
-X-Membit-Api-Key: YOUR_API_KEY
+X-Membit-Api-Key: <your-api-key>
 ```
 
-<Tip>Get your API key at [membit.ai](https://membit.ai).</Tip>
+<Tip>Get your API key at [get your API key](/access-and-auth).</Tip>
 
 ## Endpoints
 
@@ -36,7 +36,7 @@ Search for trending discussion clusters using semantic and keyword matching.
 
 ```bash curl GET
 curl -X GET "https://api-app.membit.ai/clusters/search?q=artificial%20intelligence&limit=1" \
-  -H "X-Membit-Api-Key: YOUR_API_KEY"
+  -H "X-Membit-Api-Key: <your-api-key>"
 ```
 
 ```json Success
@@ -117,7 +117,7 @@ Get detailed information about a specific cluster, including individual posts.
 
 ```bash curl GET
 curl -X GET "https://api-app.membit.ai/clusters/info?label=Machine%20Learning%20Study%20Resources&limit=1" \
-  -H "X-Membit-Api-Key: YOUR_API_KEY"
+  -H "X-Membit-Api-Key: <your-api-key>"
 ```
 
 ```json Success
@@ -306,7 +306,7 @@ Search for individual social media posts using semantic similarity.
 
 ```bash curl GET
 curl -X GET "https://api-app.membit.ai/posts/search?q=blockchain&limit=1" \
-  -H "X-Membit-Api-Key: YOUR_API_KEY"
+  -H "X-Membit-Api-Key: <your-api-key>"
 ```
 
 ```json Success
