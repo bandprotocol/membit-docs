@@ -167,3 +167,59 @@ If successful, your AI agent will respond with current information about your qu
 </Check>
 </Step>
 </Steps>
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="MCP Server Connection Issues">
+**Problem**: Cannot connect to Membit MCP server in Gumloop
+
+**Solutions**:
+
+Verify the MCP server URL is correct: `https://mcp.membit.ai/mcp`
+
+Check your API key is correct and active
+
+Ensure the Additional Header format is exact: `X-Membit-Api-Key: <your-api-key>`
+
+Try re-saving the MCP server credentials
+
+Check if Gumloop has proper internet access
+
+</Accordion>
+
+<Accordion title="Authentication Failures">
+**Problem**: API key authentication is failing
+
+**Solutions**:
+
+Verify your Membit API key is active in your dashboard
+
+Ensure there are no extra spaces or characters in the API key
+
+Check that the header name is exactly `X-Membit-Api-Key` (case-sensitive)
+
+Try generating a new API key if the current one isn't working
+
+Confirm your Membit account has sufficient credits/usage allowance
+
+</Accordion>
+
+<Accordion title="Ask AI Node Configuration">
+**Problem**: Ask AI node doesn't use Membit tools
+
+**Solutions**:
+
+Ensure "Connect MCP server" is set to **Yes**
+
+Verify the "membit-mcp" server is selected in MCP servers dropdown
+
+Try switching to Claude 4 Sonnet model for better tool usage
+
+Make your prompt more explicit about using Membit: "Use membit to tell me about..."
+
+Check if the workflow has proper permissions to access external servers
+
+</Accordion>
+
+</AccordionGroup>

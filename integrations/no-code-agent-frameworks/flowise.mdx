@@ -174,3 +174,92 @@ Try asking questions like "What's trending in AI today?" or "Tell me about recen
 </Check>
 </Step>
 </Steps>
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Custom MCP Configuration Issues">
+**Problem**: Cannot configure or connect Custom MCP node
+
+**Solutions**:
+
+Verify the JSON configuration syntax is valid (no trailing commas, proper quotes)
+
+Ensure the URL is exactly `https://mcp.membit.ai/mcp`
+
+Check that the `MEMBIT_API_KEY` variable is properly set in Flowise
+
+Try clicking the refresh button after configuration to load available actions
+
+Restart Flowise after making configuration changes
+
+</Accordion>
+
+<Accordion title="Environment Variable Problems">
+**Problem**: API key variable not recognized in Flowise
+
+**Solutions**:
+
+Create a `MEMBIT_API_KEY` variable in Flowise's environment settings
+
+Ensure the variable syntax in JSON uses `{{$vars.MEMBIT_API_KEY}}`
+
+Verify there are no extra spaces or characters in the variable name
+
+Check that your Membit API key is active and valid
+
+Try restarting Flowise completely after setting environment variables
+
+</Accordion>
+
+<Accordion title="Tool Agent Connection Issues">
+**Problem**: Tool Agent doesn't connect to Custom MCP properly
+
+**Solutions**:
+
+Ensure Custom MCP is connected to the "Tools" input of Tool Agent
+
+Verify ChatGoogleGenerativeAI is connected to "Tool Calling Chat Model" input
+
+Check that Buffer Memory is connected to "Memory" input
+
+Confirm all connection lines are properly established and visible
+
+Try disconnecting and reconnecting nodes in the correct sequence
+
+</Accordion>
+
+<Accordion title="Chat Model Not Using Tools">
+**Problem**: AI responses don't include real-time context from Membit
+
+**Solutions**:
+
+Verify the Google AI Studio API key is correctly configured
+
+Ensure the chat model supports function calling (Gemini Pro recommended)
+
+Make prompts more explicit: "Use available tools to search for current information about..."
+
+Check that the Custom MCP actions are properly loaded and selected
+
+Test with topics that are likely to have recent social media activity
+
+</Accordion>
+
+<Accordion title="Chatflow Execution Errors">
+**Problem**: Chatflow fails to execute or times out
+
+**Solutions**:
+
+Check all required inputs are connected and configured
+
+Verify internet connectivity and firewall settings
+
+Ensure your Google AI Studio API key has sufficient quota
+
+Review Flowise logs for specific error messages
+
+Try testing individual components before connecting the full flow
+
+</Accordion>
+</AccordionGroup>

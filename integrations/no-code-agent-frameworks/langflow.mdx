@@ -179,3 +179,75 @@ If successful, your agent will respond with current information about your query
 </Check>
 </Step>
 </Steps>
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="MCP Server STDIO Connection Issues">
+**Problem**: Cannot establish STDIO connection to Membit MCP server
+
+**Solutions**:
+
+Verify `mcp-remote` is available: run `npx mcp-remote --version` in terminal
+
+Check the command format: `npx -y mcp-remote https://mcp.membit.ai/mcp`
+
+Ensure Node.js is properly installed and accessible to Langflow
+
+Verify environment variable `MEMBIT_API_KEY` is set correctly
+
+Try restarting Langflow after configuration changes
+
+</Accordion>
+
+<Accordion title="Tool Mode Not Working">
+**Problem**: MCP tools don't appear or aren't accessible
+
+**Solutions**:
+
+Ensure "Toggle Tool Mode" is enabled after server configuration
+
+Verify the MCP server status shows as "Connected"
+
+Check server logs for connection errors or authentication failures
+
+Try removing and re-adding the MCP server configuration
+
+Confirm all arguments are in correct order: `--header` then `X-Membit-Api-Key:${MEMBIT_API_KEY}`
+
+</Accordion>
+
+<Accordion title="Agent Not Using Tools">
+**Problem**: Agent doesn't utilize Membit tools in responses
+
+**Solutions**:
+
+Ensure MCP Tools component is properly connected to Agent Tools input
+
+Try more explicit prompts: "Use the available tools to search for..."
+
+Verify the chat model supports tool/function calling (Gemini 2.5 Flash recommended)
+
+Check if the agent has proper system instructions about tool usage
+
+Test with simpler, more direct questions about current events
+
+</Accordion>
+
+<Accordion title="Workflow Component Connection Errors">
+**Problem**: Components won't connect or show connection errors
+
+**Solutions**:
+
+Verify component types match: Agent expects Tools input, not generic components
+
+Check that all required inputs are connected (Chat Input → Agent, Model → Agent)
+
+Ensure MCP Tools output is properly mapped to Agent Tools input
+
+Try reconnecting components in the correct order
+
+Restart the workflow and test connections step by step
+
+</Accordion>
+</AccordionGroup>

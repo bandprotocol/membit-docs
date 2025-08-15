@@ -122,3 +122,92 @@ If successful, you'll see responses that include recent trends, discussions, and
 </Check>
 </Step>
 </Steps>
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="MCP Client Connection Issues">
+**Problem**: Cannot connect to Membit MCP server in n8n
+
+**Solutions**:
+
+Verify the endpoint URL is correct: `https://mcp.membit.ai/mcp`
+
+Ensure "Server Transport" is set to "HTTP Streamable"
+
+Check that "Authentication" is set to "Header Auth"
+
+Verify header name is exactly `X-Membit-Api-Key` (case-sensitive)
+
+Test the connection with a simple request first
+
+</Accordion>
+
+<Accordion title="Authentication Header Configuration">
+**Problem**: API key authentication is failing
+
+**Solutions**:
+
+Confirm the header name is `X-Membit-Api-Key` (not `Authorization`)
+
+Ensure there are no extra spaces or characters in the API key value
+
+Verify your Membit API key is active and valid
+
+Check that the header value contains only the API key (no "Bearer " prefix)
+
+Try regenerating your API key if authentication continues to fail
+
+</Accordion>
+
+<Accordion title="AI Agent Tool Integration">
+**Problem**: AI Agent doesn't use MCP Client tools
+
+**Solutions**:
+
+Ensure MCP Client is properly connected to the AI Agent node
+
+Verify "Tools to Include" is set to "All" in MCP Client configuration
+
+Check that the AI model (Google Gemini) supports function calling
+
+Make prompts more explicit: "Use available tools to search for current information about..."
+
+Test the MCP Client connection independently before connecting to AI Agent
+
+</Accordion>
+
+<Accordion title="Workflow Node Connection Errors">
+**Problem**: Nodes won't connect or show connection issues
+
+**Solutions**:
+
+Verify the connection order: Chat Trigger → AI Agent, MCP Client → AI Agent
+
+Ensure all required node inputs are satisfied
+
+Check that node versions are compatible with each other
+
+Try disconnecting and reconnecting nodes in the correct sequence
+
+Restart the n8n workflow editor if connections appear broken
+
+</Accordion>
+
+<Accordion title="Chat Trigger Not Responding">
+**Problem**: Chat interface doesn't respond or process messages
+
+**Solutions**:
+
+Verify the Chat Trigger node is properly configured and activated
+
+Ensure the workflow is saved and deployed
+
+Check that all nodes in the workflow are properly connected
+
+Test with simple messages first to verify basic functionality
+
+Review workflow execution logs for error messages
+
+</Accordion>
+</AccordionGroup>
