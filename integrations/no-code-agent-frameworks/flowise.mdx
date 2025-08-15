@@ -79,12 +79,15 @@ Set the configuration using JSON format and replace with your Membit API key:
 
 ```json
 {
-  "url": "https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>"
+  "url": "https://mcp.membit.ai/mcp",
+  "headers": {
+    "X-Membit-Api-Key": "{{$vars.MEMBIT_API_KEY}}"
+  }
 }
 ```
 
 <Warning>
-Replace `<your-api-key>` with your actual Membit API key. Keep this credential secure and don't share it with unauthorized users.
+  To use your API key securely, create a `MEMBIT_API_KEY` variable in Flowise
 </Warning>
 
 After configuration, click the **refresh button** to load available actions, then select the actions you want to use.

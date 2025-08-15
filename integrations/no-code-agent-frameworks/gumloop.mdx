@@ -4,6 +4,12 @@ description: "Learn how to integrate Membit's real-time context with your Gumloo
 icon: "gumloop"
 ---
 
+<Warning>
+  **Current Integration Issue**: There are currently limitations with setting
+  custom headers in the Gumloop MCP server configuration, which may prevent
+  proper authentication with Membit's API. We are working to resolve this issue.
+</Warning>
+
 Gumloop is an intuitive no-code platform that enables you to build AI-powered workflows and automations. By integrating Membit with Gumloop, you can enhance your AI agents with real-time social context, allowing them to access current trends, breaking news, and live conversations from across the web.
 
 ## Prerequisites
@@ -67,8 +73,9 @@ The MCP Server credential type enables Gumloop to connect with external Model Co
 Fill in the MCP server configuration with the following details:
 
 ```
-URL: https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>
+URL: https://mcp.membit.ai/mcp
 Label: membit-mcp
+Additional Header: X-Membit-Api-Key: <your-api-key>
 ```
 
 <Frame>

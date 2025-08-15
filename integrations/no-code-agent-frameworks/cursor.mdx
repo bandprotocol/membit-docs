@@ -57,9 +57,11 @@ Paste the following Membit remote MCP configuration into the configuration field
 ```json
 {
   "mcpServers": {
-    "membit-remote-mcp": {
-      "command": "npx -y mcp-remote https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>",
-      "env": {}
+    "membit-mcp": {
+      "url": "https://mcp.membit.ai/mcp",
+      "headers": {
+        "X-Membit-Api-Key": "<your-api-key>"
+      }
     }
   }
 }

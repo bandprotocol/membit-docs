@@ -51,9 +51,11 @@ The MCP Client Tool should appear in the search results. This tool enables n8n t
 Add the MCP Client Tool to your workflow and configure it with the following settings:
 
 ```
-Endpoint: https://mcp.membit.ai/mcp/?Membit-Api-Key=<your-api-key>
+Endpoint: https://mcp.membit.ai/mcp
 Server Transport: HTTP Streamable
-Authentication: None
+Authentication: Header Auth
+  - Name: X-Membit-Api-Key
+  - Value: <your-api-key>
 Tools to Include: All
 ```
 
