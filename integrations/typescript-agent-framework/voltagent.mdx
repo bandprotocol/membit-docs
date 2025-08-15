@@ -56,13 +56,13 @@ const mcpConfig = new MCPConfiguration({
       type: "stdio",
       command: "npx",
       env: {
-        API_KEY: <your-api-key>,
+        MEMBIT_API_KEY: <your-api-key>,
       },
       args: [
         "mcp-remote",
         "https://mcp.membit.ai/mcp",
         "--header",
-        "X-Membit-Api-Key:${API_KEY}",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
       ],
     },
   },
@@ -128,13 +128,13 @@ const mcpConfig = new MCPConfiguration({
       type: "stdio",
       command: "npx",
       env: {
-        API_KEY: <your-api-key>,
+        MEMBIT_API_KEY: <your-api-key>,
       },
       args: [
         "mcp-remote",
         "https://mcp.membit.ai/mcp",
         "--header",
-        "X-Membit-Api-Key:${API_KEY}",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
       ],
     },
   },

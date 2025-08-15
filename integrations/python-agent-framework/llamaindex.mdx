@@ -61,10 +61,10 @@ mcp_client = BasicMCPClient(
         "mcp-remote",
         "https://mcp.membit.ai/mcp",
         "--header",
-        "X-Membit-Api-Key:${API_KEY}",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
     ],
     env={
-        "API_KEY": <your-api-key>,
+        "MEMBIT_API_KEY": <your-api-key>,
     },
 )
 # Async method
@@ -84,10 +84,10 @@ mcp_client = BasicMCPClient(
         "mcp-remote",
         "https://mcp.membit.ai/mcp",
         "--header",
-        "X-Membit-Api-Key:${API_KEY}",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
     ],
     env={
-        "API_KEY": <your-api-key>,
+        "MEMBIT_API_KEY": <your-api-key>,
     },
 )
 # Synchronous method
@@ -160,11 +160,11 @@ async def main():
             "mcp-remote",
             "https://mcp.membit.ai/mcp",
             "--header",
-            "X-Membit-Api-Key:${API_KEY}",
+            "X-Membit-Api-Key:${MEMBIT_API_KEY}",
         ],
         env={
             # Replace `<your-api-key>` with your actual Membit API key.
-            "API_KEY": <your-api-key>,
+            "MEMBIT_API_KEY": <your-api-key>,
         },
     )
 

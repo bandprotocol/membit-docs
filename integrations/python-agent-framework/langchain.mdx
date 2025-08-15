@@ -75,10 +75,10 @@ server_params = StdioServerParameters(
         "mcp-remote",
         "https://mcp.membit.ai/mcp",
         "--header",
-        "X-Membit-Api-Key:${API_KEY}",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
     ],
     env={
-        "API_KEY": <your-api-key>,
+        "MEMBIT_API_KEY": <your-api-key>,
     },
 )
 ```
@@ -181,11 +181,11 @@ server_params = StdioServerParameters(
         "mcp-remote",
         "https://mcp.membit.ai/mcp",
         "--header",
-        "X-Membit-Api-Key:${API_KEY}",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
     ],
     env={
         # Replace `<your-api-key>` with your actual Membit API key.
-        "API_KEY": <your-api-key>,
+        "MEMBIT_API_KEY": <your-api-key>,
     },
 )
 
