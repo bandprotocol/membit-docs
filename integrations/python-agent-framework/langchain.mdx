@@ -1,7 +1,7 @@
 ---
 title: "LangChain"
 description: "Integrate Membit's real-time social context into your LangChain agents and applications using MCP tools."
-icon: "langchain"
+icon: "); mask-image: url('/images/icons/langchain.svg'); mask-size: 100% 100%;/*"
 ---
 
 Enhance your LangChain applications with real-time social media context from Membit. This integration allows your AI agents to access up-to-the-minute discussions, trends, and insights from platforms like X (Twitter), Farcaster, and more.
@@ -16,7 +16,8 @@ Before you begin, ensure you have:
 - Node.js installed (for MCP remote client)
 
 <Warning>
-You'll need valid Membit API credentials and the MCP remote URL. If you don't have access yet, [get your API key](/access-and-auth) to get started.
+  You'll need valid Membit API credentials and the MCP remote URL. If you don't
+  have access yet, [get your API key](/access-and-auth) to get started.
 </Warning>
 
 ## Installation
@@ -32,7 +33,8 @@ npm install -g mcp-remote
 ```
 
 <Tip>
-We recommend using a virtual environment to manage your Python dependencies and avoid conflicts.
+  We recommend using a virtual environment to manage your Python dependencies
+  and avoid conflicts.
 </Tip>
 
 ## Quick Start
@@ -52,6 +54,7 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.schema import HumanMessage
 from langchain_mcp_adapters.tools import load_mcp_tools
 ```
+
 </Step>
 
 <Step title="Configure your LLM">
@@ -63,6 +66,7 @@ llm = init_chat_model(
     model_provider="openai",
 )
 ```
+
 </Step>
 
 <Step title="Configure MCP server parameters">
@@ -84,7 +88,7 @@ server_params = StdioServerParameters(
 ```
 
 <Note>
-Make sure you have `mcp-remote` installed globally via npm for this to work.
+  Make sure you have `mcp-remote` installed globally via npm for this to work.
 </Note>
 
 <Warning>
@@ -107,6 +111,7 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 ```
+
 </Step>
 
 <Step title="Create and run your agent">
@@ -124,15 +129,15 @@ async def main():
 
             # Create the LangChain agent
             agent = create_openai_tools_agent(
-                llm=llm, 
-                tools=mcp_tools, 
+                llm=llm,
+                tools=mcp_tools,
                 prompt=prompt
             )
 
             # Create executor
             agent_executor = AgentExecutor(
-                agent=agent, 
-                tools=mcp_tools, 
+                agent=agent,
+                tools=mcp_tools,
                 verbose=True
             )
 
@@ -170,66 +175,67 @@ from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
 # Initialize LLM
+
 llm = init_chat_model(
-    model="gpt-4o",
-    model_provider="openai",
+model="gpt-4o",
+model_provider="openai",
 )
 
 server_params = StdioServerParameters(
-    command="npx",
-    args=[
-        "mcp-remote",
-        "https://mcp.membit.ai/mcp",
-        "--header",
-        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
-    ],
-    env={
-        # Replace `<your-api-key>` with your actual Membit API key.
-        "MEMBIT_API_KEY": <your-api-key>,
-    },
+command="npx",
+args=[
+"mcp-remote",
+"https://mcp.membit.ai/mcp",
+"--header",
+"X-Membit-Api-Key:${MEMBIT_API_KEY}",
+],
+env={ # Replace `<your-api-key>` with your actual Membit API key.
+"MEMBIT_API_KEY": <your-api-key>,
+},
 )
 
 prompt = ChatPromptTemplate.from_messages([
-    (
-        "system",
-        "You are a social media analyst with access to real-time data. "
-        "Make sure you utilize membit tools to get the most trending data."
-    ),
-    MessagesPlaceholder(variable_name="messages"),
-    MessagesPlaceholder(variable_name="agent_scratchpad"),
+(
+"system",
+"You are a social media analyst with access to real-time data. "
+"Make sure you utilize membit tools to get the most trending data."
+),
+MessagesPlaceholder(variable_name="messages"),
+MessagesPlaceholder(variable_name="agent_scratchpad"),
 ])
 
 async def main():
-    async with stdio_client(server_params) as (read, write):
-        async with ClientSession(read, write) as session:
-            await session.initialize()
-            
+async with stdio_client(server_params) as (read, write):
+async with ClientSession(read, write) as session:
+await session.initialize()
+
             mcp_tools = await load_mcp_tools(session)
-            
+
             agent = create_openai_tools_agent(
-                llm=llm, 
-                tools=mcp_tools, 
+                llm=llm,
+                tools=mcp_tools,
                 prompt=prompt
             )
-            
+
             agent_executor = AgentExecutor(
-                agent=agent, 
-                tools=mcp_tools, 
+                agent=agent,
+                tools=mcp_tools,
                 verbose=True
             )
-            
+
             user_input = (
                 "What are the most trending discussions today related to Bitcoin? "
                 "Give me the best conversations to follow with URLs."
             )
-            
+
             await agent_executor.ainvoke({
                 "messages": [HumanMessage(content=user_input)]
             })
-            
 
-if __name__ == "__main__":
-    asyncio.run(main())
+
+if **name** == "**main**":
+asyncio.run(main())
+
 ```
 </CodeGroup>
 
@@ -266,3 +272,4 @@ if __name__ == "__main__":
 - Test with simpler queries first
 </Accordion>
 </AccordionGroup>
+```

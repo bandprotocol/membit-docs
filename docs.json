@@ -30,47 +30,33 @@
           "api-usage/restful",
           "api-usage/mcp-server",
           "api-usage/python",
-          "api-usage/typescript",
-          "api-usage/rust",
-          "api-usage/go"
+          "api-usage/typescript"
         ]
       },
       {
-        "group": "Integrations",
+        "group": "Usage with No-Code AI Agents",
         "pages": [
-          {
-            "group": "LLMs",
-            "pages": [
-              "integrations/llms/custom-chatgpt",
-              "integrations/llms/claude-desktop"
-            ]
-          },
-          {
-            "group": "No-Code Agents",
-            "pages": [
-              "integrations/no-code-agent-frameworks/n8n",
-              "integrations/no-code-agent-frameworks/gumloop",
-              "integrations/no-code-agent-frameworks/flowise",
-              "integrations/no-code-agent-frameworks/langflow",
-              "integrations/no-code-agent-frameworks/cursor"
-            ]
-          },
-          {
-            "group": "Python Agents",
-            "pages": [
-              "integrations/python-agent-framework/crewai",
-              "integrations/python-agent-framework/langchain",
-              "integrations/python-agent-framework/llamaindex",
-              "integrations/python-agent-framework/autogen"
-            ]
-          },
-          {
-            "group": "Typescript Agents",
-            "pages": [
-              "integrations/typescript-agent-framework/mastra",
-              "integrations/typescript-agent-framework/voltagent"
-            ]
-          }
+          "integrations/no-code-agent-frameworks/n8n",
+          "integrations/no-code-agent-frameworks/gumloop",
+          "integrations/no-code-agent-frameworks/flowise",
+          "integrations/no-code-agent-frameworks/langflow",
+          "integrations/no-code-agent-frameworks/cursor"
+        ]
+      },
+      {
+        "group": "Usage with Python Agents",
+        "pages": [
+          "integrations/python-agent-framework/crewai",
+          "integrations/python-agent-framework/langchain",
+          "integrations/python-agent-framework/llamaindex",
+          "integrations/python-agent-framework/autogen"
+        ]
+      },
+      {
+        "group": "Usage with Typescript Agents",
+        "pages": [
+          "integrations/typescript-agent-framework/mastra",
+          "integrations/typescript-agent-framework/voltagent"
         ]
       },
       {

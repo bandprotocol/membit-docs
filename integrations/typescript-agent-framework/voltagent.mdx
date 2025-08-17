@@ -1,7 +1,7 @@
 ---
 title: "VoltAgent"
 description: "Integrate Membit's real-time social context into your VoltAgent agents and workflows using MCP tools."
-icon: "voltagent"
+icon: "); mask-image: url('/images/icons/voltagent.png'); mask-size: 100% 100%;/*"
 ---
 
 Enhance your VoltAgent applications with real-time social media context from Membit. This integration allows your AI agents to access up-to-the-minute discussions, trends, and insights from platforms like X (Twitter), Farcaster, and more.
@@ -16,7 +16,8 @@ Before you begin, ensure you have:
 - TypeScript knowledge (recommended)
 
 <Warning>
-You'll need valid Membit API credentials and the MCP remote URL. If you don't have access yet, [get your API key](/access-and-auth) to get started.
+  You'll need valid Membit API credentials and the MCP remote URL. If you don't
+  have access yet, [get your API key](/access-and-auth) to get started.
 </Warning>
 
 ## Installation
@@ -29,7 +30,8 @@ npm install @voltagent/core
 ```
 
 <Tip>
-VoltAgent works best with TypeScript and structured logging. Make sure your project is configured accordingly.
+  VoltAgent works best with TypeScript and structured logging. Make sure your
+  project is configured accordingly.
 </Tip>
 
 ## Quick Start
@@ -44,6 +46,7 @@ import { createPinoLogger } from "@voltagent/logger";
 import { VercelAIProvider } from "@voltagent/vercel-ai";
 import { openai } from "@ai-sdk/openai";
 ```
+
 </Step>
 
 <Step title="Configure MCP connection">
@@ -70,7 +73,7 @@ const mcpConfig = new MCPConfiguration({
 ```
 
 <Note>
-VoltAgent supports streamable HTTP transport for efficient MCP connections.
+  VoltAgent supports streamable HTTP transport for efficient MCP connections.
 </Note>
 
 <Warning>
@@ -84,12 +87,14 @@ Create a VoltAgent agent with Membit tools:
 ```typescript
 const membitAgent = new Agent({
   name: "social-media-analyst",
-  instructions: "You are a social media analyst with access to real-time data. Use cluster_search to find trending discussions, cluster_info for detailed analysis, and post_search for specific posts.",
+  instructions:
+    "You are a social media analyst with access to real-time data. Use cluster_search to find trending discussions, cluster_info for detailed analysis, and post_search for specific posts.",
   llm: new VercelAIProvider(),
   model: openai("gpt-4o-mini"),
   tools: await mcpConfig.getTools(),
 });
 ```
+
 </Step>
 
 <Step title="Initialize VoltAgent system">
@@ -123,40 +128,41 @@ import { openai } from "@ai-sdk/openai";
 
 // Configure MCP connection to Membit
 const mcpConfig = new MCPConfiguration({
-  servers: {
-    membit: {
-      type: "stdio",
-      command: "npx",
-      env: {
-        MEMBIT_API_KEY: <your-api-key>,
-      },
-      args: [
-        "mcp-remote",
-        "https://mcp.membit.ai/mcp",
-        "--header",
-        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
-      ],
-    },
-  },
+servers: {
+membit: {
+type: "stdio",
+command: "npx",
+env: {
+MEMBIT_API_KEY: <your-api-key>,
+},
+args: [
+"mcp-remote",
+"https://mcp.membit.ai/mcp",
+"--header",
+"X-Membit-Api-Key:${MEMBIT_API_KEY}",
+],
+},
+},
 });
 
 // Create Membit-powered agent
 const socialAnalyst = new Agent({
-  name: "membit-social-analyst",
-  instructions: `You are an expert social media analyst with access to real-time trending data. 
+name: "membit-social-analyst",
+instructions: `You are an expert social media analyst with access to real-time trending data. 
   Use cluster_search to find trending discussions, cluster_info to dive deeper into specific conversations, 
   and post_search to find individual posts. Always provide context and source URLs.`,
-  llm: new VercelAIProvider(),
-  model: openai("gpt-4o-mini"),
-  tools: await mcpConfig.getTools(),
+llm: new VercelAIProvider(),
+model: openai("gpt-4o-mini"),
+tools: await mcpConfig.getTools(),
 });
 
 // Initialize VoltAgent
 const voltAgent = new VoltAgent({
-  agents: {
-    socialAnalyst,
-  },
+agents: {
+socialAnalyst,
+},
 });
+
 ```
 </CodeGroup>
 
@@ -193,3 +199,4 @@ const voltAgent = new VoltAgent({
 - Ensure agents have access to required tools
 </Accordion>
 </AccordionGroup>
+```

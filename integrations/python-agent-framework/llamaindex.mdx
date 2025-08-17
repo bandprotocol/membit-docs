@@ -1,7 +1,7 @@
 ---
 title: "LlamaIndex"
 description: "Integrate Membit's real-time social context into your LlamaIndex agents and applications using MCP tools."
-icon: "llamaindex"
+icon: "); mask-image: url('/images/icons/llamaindex.svg'); mask-size: 100% 100%;/*"
 ---
 
 Enhance your LlamaIndex applications with real-time social media context from Membit. This integration allows your AI agents to access up-to-the-minute discussions, trends, and insights from platforms like X (Twitter), Farcaster, and more.
@@ -15,7 +15,8 @@ Before you begin, ensure you have:
 - Basic familiarity with LlamaIndex agents
 
 <Warning>
-You'll need valid Membit API credentials. If you don't have access yet, [get your API key](/access-and-auth) to get started.
+  You'll need valid Membit API credentials. If you don't have access yet, [get
+  your API key](/access-and-auth) to get started.
 </Warning>
 
 ## Installation
@@ -27,7 +28,8 @@ pip install llama-index-tools-mcp
 ```
 
 <Tip>
-We recommend using a virtual environment to manage your dependencies and avoid conflicts.
+  We recommend using a virtual environment to manage your dependencies and avoid
+  conflicts.
 </Tip>
 
 ## Quick Start
@@ -46,6 +48,7 @@ from llama_index.core.agent import ReActAgent
 from llama_index.core.memory import ChatMemoryBuffer
 from llama_index.llms.openai import OpenAI
 ```
+
 </Step>
 
 <Step title="Get Membit tools from MCP server">
@@ -136,6 +139,7 @@ response = agent.query(
 
 print(response)
 ```
+
 </Step>
 </Steps>
 
@@ -152,31 +156,29 @@ from llama_index.core.memory import ChatMemoryBuffer
 from llama_index.llms.openai import OpenAI
 from llama_index.tools.mcp import aget_tools_from_mcp_url
 
-async def main():
-    # Create MCP client
-    mcp_client = BasicMCPClient(
-        command_or_url="npx",
-        args=[
-            "mcp-remote",
-            "https://mcp.membit.ai/mcp",
-            "--header",
-            "X-Membit-Api-Key:${MEMBIT_API_KEY}",
-        ],
-        env={
-            # Replace `<your-api-key>` with your actual Membit API key.
-            "MEMBIT_API_KEY": <your-api-key>,
-        },
-    )
+async def main(): # Create MCP client
+mcp_client = BasicMCPClient(
+command_or_url="npx",
+args=[
+"mcp-remote",
+"https://mcp.membit.ai/mcp",
+"--header",
+"X-Membit-Api-Key:${MEMBIT_API_KEY}",
+],
+env={ # Replace `<your-api-key>` with your actual Membit API key.
+"MEMBIT_API_KEY": <your-api-key>,
+},
+)
 
     # Get Membit tools
     tools = await aget_tools_from_mcp_url(
         "",
         client=mcp_client,
     )
-    
+
     # Initialize LLM
     llm = OpenAI(model="gpt-4o-mini")
-    
+
     # Create agent
     agent = ReActAgent(
         tools=tools,
@@ -184,17 +186,18 @@ async def main():
         memory=ChatMemoryBuffer.from_defaults(),
         verbose=True,
     )
-    
+
     # Query for trending crypto discussions
     response = await agent.aquery(
         "What are the most trending discussions about Bitcoin today? "
         "Use cluster_search to find the hottest topics and give me insights."
     )
-    
+
     print(response)
 
-if __name__ == "__main__":
-    asyncio.run(main())
+if **name** == "**main**":
+asyncio.run(main())
+
 ```
 </CodeGroup>
 
@@ -231,3 +234,4 @@ if __name__ == "__main__":
 - Check your internet connection stability
 </Accordion>
 </AccordionGroup>
+```

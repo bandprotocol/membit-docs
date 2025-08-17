@@ -1,7 +1,7 @@
 ---
 title: "CrewAI"
 description: "Integrate Membit's real-time social context into your CrewAI agents and crews using MCP tools."
-icon: "crewai"
+icon: "); mask-image: url('/images/icons/crewai.svg'); mask-size: 100% 100%;/*"
 ---
 
 Enhance your CrewAI applications with real-time social media context from Membit. This integration allows your AI agents to access up-to-the-minute discussions, trends, and insights from platforms like X (Twitter), Farcaster, and more.
@@ -16,7 +16,8 @@ Before you begin, ensure you have:
 - Node.js installed (for MCP remote client)
 
 <Warning>
-You'll need valid Membit API credentials and the MCP remote URL. If you don't have access yet, [get your API key](/access-and-auth) to get started.
+  You'll need valid Membit API credentials and the MCP remote URL. If you don't
+  have access yet, [get your API key](/access-and-auth) to get started.
 </Warning>
 
 ## Installation
@@ -32,7 +33,8 @@ npm install -g mcp-remote
 ```
 
 <Tip>
-We recommend using a virtual environment to manage your Python dependencies and avoid conflicts.
+  We recommend using a virtual environment to manage your Python dependencies
+  and avoid conflicts.
 </Tip>
 
 ## Quick Start
@@ -46,6 +48,7 @@ from crewai import Agent, Task, Crew
 from crewai_tools import MCPServerAdapter
 from mcp import StdioServerParameters
 ```
+
 </Step>
 
 <Step title="Configure MCP server parameters">
@@ -67,7 +70,7 @@ server_params = StdioServerParameters(
 ```
 
 <Note>
-Make sure you have `mcp-remote` installed globally via npm for this to work.
+  Make sure you have `mcp-remote` installed globally via npm for this to work.
 </Note>
 
 <Warning>
@@ -89,6 +92,7 @@ with MCPServerAdapter(server_params) as membit_tools:
         tools=membit_tools,
     )
 ```
+
 </Step>
 
 <Step title="Define your analysis task">
@@ -101,6 +105,7 @@ Create a task that leverages Membit's real-time data:
         expected_output="A comprehensive analysis of trending AI discussions with key insights and source URLs",
     )
 ```
+
 </Step>
 
 <Step title="Execute your crew">
@@ -109,10 +114,10 @@ Create and run your CrewAI crew:
 ```python
     # Create and execute the crew
     crew = Crew(
-        agents=[analyst_agent], 
+        agents=[analyst_agent],
         tasks=[analysis_task]
     )
-    
+
     result = crew.kickoff()
     print(result)
 ```
@@ -134,19 +139,18 @@ from crewai_tools import MCPServerAdapter
 from mcp import StdioServerParameters
 
 def main():
-    server_params = StdioServerParameters(
-        command="npx",
-        args=[
-            "mcp-remote",
-            "https://mcp.membit.ai/mcp",
-            "--header",
-            "X-Membit-Api-Key:${MEMBIT_API_KEY}",
-        ],
-        env={
-            # Replace `<your-api-key>` with your actual Membit API key.
-            "MEMBIT_API_KEY": <your-api-key>,
-        },
-    )
+server_params = StdioServerParameters(
+command="npx",
+args=[
+"mcp-remote",
+"https://mcp.membit.ai/mcp",
+"--header",
+"X-Membit-Api-Key:${MEMBIT_API_KEY}",
+],
+env={ # Replace `<your-api-key>` with your actual Membit API key.
+"MEMBIT_API_KEY": <your-api-key>,
+},
+)
 
     with MCPServerAdapter(server_params) as membit_tools:
         # Create a social media analyst agent
@@ -168,12 +172,13 @@ def main():
         # Execute the crew
         crew = Crew(agents=[analyst_agent], tasks=[analysis_task])
         result = crew.kickoff()
-        
+
         print("Analysis Results:")
         print(result)
 
-if __name__ == "__main__":
-    main()
+if **name** == "**main**":
+main()
+
 ```
 </CodeGroup>
 
@@ -210,3 +215,4 @@ if __name__ == "__main__":
 - Ensure agents have clear, specific roles and goals
 </Accordion>
 </AccordionGroup>
+```

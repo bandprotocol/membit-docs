@@ -1,7 +1,7 @@
 ---
 title: "AutoGen"
 description: "Integrate Membit's real-time social context into your AutoGen agents and multi-agent systems using MCP tools."
-icon: "autogen"
+icon: "); mask-image: url('/images/icons/autogen.png'); mask-size: 100% 100%;/*"
 ---
 
 Enhance your AutoGen applications with real-time social media context from Membit. This integration allows your AI agents to access up-to-the-minute discussions, trends, and insights from platforms like X (Twitter), Farcaster, and more.
@@ -16,7 +16,8 @@ Before you begin, ensure you have:
 - Node.js installed (for MCP remote client)
 
 <Warning>
-You'll need valid Membit API credentials and the MCP remote URL. If you don't have access yet, [get your API key](/access-and-auth) to get started.
+  You'll need valid Membit API credentials and the MCP remote URL. If you don't
+  have access yet, [get your API key](/access-and-auth) to get started.
 </Warning>
 
 ## Installation
@@ -32,7 +33,8 @@ npm install -g mcp-remote
 ```
 
 <Tip>
-We recommend using a virtual environment to manage your Python dependencies and avoid conflicts.
+  We recommend using a virtual environment to manage your Python dependencies
+  and avoid conflicts.
 </Tip>
 
 ## Quick Start
@@ -49,6 +51,7 @@ from autogen_agentchat.ui import Console
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 from autogen_ext.tools.mcp import McpWorkbench, StdioServerParams
 ```
+
 </Step>
 
 <Step title="Configure MCP server parameters">
@@ -71,7 +74,7 @@ params = StdioServerParams(
 ```
 
 <Note>
-Make sure you have `mcp-remote` installed globally via npm for this to work.
+  Make sure you have `mcp-remote` installed globally via npm for this to work.
 </Note>
 
 <Warning>
@@ -85,6 +88,7 @@ Set up your language model client:
 ```python
 model_client = OpenAIChatCompletionClient(model="gpt-4o-mini")
 ```
+
 </Step>
 
 <Step title="Create your Membit-powered agent">
@@ -94,7 +98,7 @@ Use McpWorkbench to connect Membit tools to your AutoGen agent:
 async with McpWorkbench(server_params=params) as workbench:
     # List available tools
     tools = await workbench.list_tools()
-    
+
     # Create assistant agent with Membit tools
     agent = AssistantAgent(
         "membit_assistant",
@@ -105,6 +109,7 @@ async with McpWorkbench(server_params=params) as workbench:
         system_message="You are a social media analyst with access to real-time data. Use Membit tools to analyze trending discussions and provide insights.",
     )
 ```
+
 </Step>
 
 <Step title="Run your agent">
@@ -137,23 +142,21 @@ from autogen_agentchat.ui import Console
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 from autogen_ext.tools.mcp import McpWorkbench, StdioServerParams
 
-async def main() -> None:
-    # Configure MCP server connection
-    params = StdioServerParams(
-        command="npx",
-        args=[
-            "mcp-remote",
-            "https://mcp.membit.ai/mcp",
-            "--header",
-            "X-Membit-Api-Key:${MEMBIT_API_KEY}",
-        ],
-        env={
-            # Replace `<your-api-key>` with your actual Membit API key.
-            "MEMBIT_API_KEY": <your-api-key>,
-        },
-        read_timeout_seconds=60,
-    )
-    
+async def main() -> None: # Configure MCP server connection
+params = StdioServerParams(
+command="npx",
+args=[
+"mcp-remote",
+"https://mcp.membit.ai/mcp",
+"--header",
+"X-Membit-Api-Key:${MEMBIT_API_KEY}",
+],
+env={ # Replace `<your-api-key>` with your actual Membit API key.
+"MEMBIT_API_KEY": <your-api-key>,
+},
+read_timeout_seconds=60,
+)
+
     # Initialize model client
     model_client = OpenAIChatCompletionClient(model="gpt-4o-mini")
 
@@ -163,7 +166,7 @@ async def main() -> None:
         print("Available Membit Tools:")
         for tool in tools:
             print(f"- {tool.name}: {tool.description}")
-        
+
         agent = AssistantAgent(
             "membit_assistant",
             model_client=model_client,
@@ -172,15 +175,16 @@ async def main() -> None:
             model_client_stream=True,
             system_message="You are a helpful social media analyst. Use cluster_search to find trending topics, cluster_info for detailed analysis, and post_search for specific posts.",
         )
-        
+
         await Console(
             agent.run_stream(
                 task="What are the most trending discussions today related to Bitcoin? Use cluster_search to find hot topics and provide the best conversations to follow with URLs."
             )
         )
 
-if __name__ == "__main__":
-    asyncio.run(main())
+if **name** == "**main**":
+asyncio.run(main())
+
 ```
 </CodeGroup>
 
@@ -217,3 +221,4 @@ if __name__ == "__main__":
 - Test with simpler, more direct task descriptions
 </Accordion>
 </AccordionGroup>
+```
