@@ -281,7 +281,7 @@
     },
     "/clusters/info": {
       "get": {
-        "summary": "Get Cluster Information",
+        "summary": "Cluster Info",
         "description": "Get detailed information about a specific cluster, including individual posts.",
         "operationId": "getClusterInfo",
         "parameters": [
