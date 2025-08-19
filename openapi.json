@@ -1,0 +1,428 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Membit RESTful API",
+    "description": "Learn how to use Membit's RESTful API to access real-time context. Execute searches and retrieve real-time social context from Membit: search trending clusters, fetch cluster details, and find relevant posts via simple HTTP endpoints.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.membit.ai/v1/",
+      "description": "Production Server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Membit-Api-Key",
+        "description": "API key for authentication."
+      }
+    },
+    "schemas": {
+      "Author": {
+        "type": "object",
+        "properties": {
+          "handle": {
+            "type": "string",
+            "example": "@PhilosophyOfPhy"
+          },
+          "name": {
+            "type": "string",
+            "example": "Philosophy Of Physics"
+          },
+          "profile_image": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://img.membit.ai/v2/ae606b4a-cd1f-4ec2-fa1d-b549ce56371e.jpeg"
+          }
+        }
+      },
+      "Engagement": {
+        "type": "object",
+        "properties": {
+          "likes": {
+            "type": "integer",
+            "example": 552
+          },
+          "replies": {
+            "type": "integer",
+            "example": 1
+          },
+          "retweets": {
+            "type": "integer",
+            "example": 68
+          }
+        }
+      },
+      "MentionedPost": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 29481
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "example": "a024f4de-498a-8ddb-dbae-c0514428f991"
+          },
+          "author": {
+            "$ref": "#/components/schemas/Author"
+          },
+          "content": {
+            "type": "string",
+            "example": "SO, what happens with Stripe and Circle chains? ..."
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-08-12T15:40:15Z"
+          }
+        }
+      },
+      "Cluster": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Unique cluster identifier",
+            "example": "Machine Learning Study Resources"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Brief description of the cluster topic",
+            "example": "Several academic resources related to mathematics, computer science, and machine learning are shared..."
+          },
+          "category": {
+            "type": "string",
+            "description": "Topic category",
+            "example": "Artificial Intelligence"
+          },
+          "engagement_score": {
+            "type": "number",
+            "format": "float",
+            "description": "Social engagement level",
+            "example": 4010.119762872029
+          },
+          "search_score": {
+            "type": "number",
+            "format": "float",
+            "description": "Relevance to search query",
+            "example": 0.9719360841066075
+          }
+        }
+      },
+      "PostBase": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique post identifier",
+            "example": 237064
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Post UUID",
+            "example": "2b13144b-d8d1-76fd-dd9a-a2020c9ad227"
+          },
+          "author": {
+            "$ref": "#/components/schemas/Author"
+          },
+          "content": {
+            "type": "string",
+            "description": "Post content/text",
+            "example": "The World as a Mathematical Game;..."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Direct link to the post",
+            "example": "https://x.com/PhilosophyOfPhy/status/1955303556321525765"
+          },
+          "mentioned": {
+            "$ref": "#/components/schemas/MentionedPost",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Post creation time (ISO 8601)",
+            "example": "2025-08-12T16:21:10Z"
+          },
+          "is_substantive": {
+            "type": "boolean",
+            "description": "Whether post contains meaningful content",
+            "example": true
+          },
+          "engagement": {
+            "$ref": "#/components/schemas/Engagement"
+          }
+        }
+      },
+      "ClusterInfoPost": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PostBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "engagement_score": {
+                "type": "number",
+                "format": "float",
+                "description": "Calculated engagement score",
+                "example": 525.4269464440242
+              }
+            }
+          }
+        ]
+      },
+      "PostSearchPost": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PostBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "search_score": {
+                "type": "number",
+                "format": "float",
+                "description": "Relevance to search query",
+                "example": 0.3715041809563351
+              },
+              "cluster_label": {
+                "type": "string",
+                "description": "Associated cluster label",
+                "example": "Circle Arc Blockchain Launch"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/clusters/search": {
+      "get": {
+        "summary": "Search Clusters",
+        "description": "Search for trending discussion clusters using semantic and keyword matching.",
+        "operationId": "searchClusters",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "Search query (minimum 3 characters)",
+            "schema": {
+              "type": "string",
+              "minLength": 3
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of clusters to return (1-50)",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 50
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "llm"
+              ],
+              "default": "json"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful search",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "clusters": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Cluster"
+                      }
+                    }
+                  }
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clusters/info": {
+      "get": {
+        "summary": "Get Cluster Information",
+        "description": "Get detailed information about a specific cluster, including individual posts.",
+        "operationId": "getClusterInfo",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "query",
+            "required": true,
+            "description": "Exact cluster label from search results",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of posts to return (1-50)",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 50
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "llm"
+              ],
+              "default": "json"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "category": {
+                      "type": "string"
+                    },
+                    "summary": {
+                      "type": "string"
+                    },
+                    "engagement_score": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "posts": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ClusterInfoPost"
+                      }
+                    }
+                  }
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/posts/search": {
+      "get": {
+        "summary": "Search Posts",
+        "description": "Search for individual social media posts using semantic similarity.",
+        "operationId": "searchPosts",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "Search query (minimum 3 characters)",
+            "schema": {
+              "type": "string",
+              "minLength": 3
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of posts to return (1-50)",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 50
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Response format",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "json",
+                "llm"
+              ],
+              "default": "json"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful search",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "posts": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PostSearchPost"
+                      }
+                    }
+                  }
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
