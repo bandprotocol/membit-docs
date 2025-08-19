@@ -29,7 +29,7 @@
         "group": "API Usage",
         "pages": [
           {
-            "group": "RESTful API",
+            "group": "REST API",
             "openapi": "openapi.json",
             "icon": "); mask-image: url('/images/icons/restful.svg'); mask-size: 100% 100%;/*"
           },
