@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://api-app.membit.ai",
+      "url": "https://api.membit.ai/v1/",
       "description": "Production Server"
     }
   ],
