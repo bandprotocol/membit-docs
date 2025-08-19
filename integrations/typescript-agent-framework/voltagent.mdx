@@ -126,8 +126,7 @@ Your VoltAgent is now powered by real-time social media context from Membit!
 
 Here's a full working example that demonstrates the integration:
 
-<CodeGroup>
-```typescript Basic Integration
+```typescript
 import { VoltAgent, Agent, MCPConfiguration } from "@voltagent/core";
 import { createPinoLogger } from "@voltagent/logger";
 import { VercelAIProvider } from "@voltagent/vercel-ai";
@@ -135,43 +134,41 @@ import { openai } from "@ai-sdk/openai";
 
 // Configure MCP connection to Membit
 const mcpConfig = new MCPConfiguration({
-servers: {
-membit: {
-type: "stdio",
-command: "npx",
-env: {
-MEMBIT_API_KEY: <your-api-key>,
-},
-args: [
-"mcp-remote",
-"https://mcp.membit.ai/mcp",
-"--header",
-"X-Membit-Api-Key:${MEMBIT_API_KEY}",
-],
-},
-},
+  servers: {
+    membit: {
+      type: "stdio",
+      command: "npx",
+      env: {
+        MEMBIT_API_KEY: <your-api-key>,
+      },
+      args: [
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+      ],
+    },
+  },
 });
 
 // Create Membit-powered agent
 const socialAnalyst = new Agent({
-name: "membit-social-analyst",
-instructions: `You are an expert social media analyst with access to real-time trending data. 
-  Use cluster_search to find trending discussions, cluster_info to dive deeper into specific conversations, 
-  and post_search to find individual posts. Always provide context and source URLs.`,
-llm: new VercelAIProvider(),
-model: openai("gpt-4o-mini"),
-tools: await mcpConfig.getTools(),
+  name: "membit-social-analyst",
+  instructions: `You are an expert social media analyst with access to real-time trending data.
+Use cluster_search to find trending discussions, cluster_info to dive deeper into specific conversations,
+and post_search to find individual posts. Always provide context and source URLs.`,
+  llm: new VercelAIProvider(),
+  model: openai("gpt-4o-mini"),
+  tools: await mcpConfig.getTools(),
 });
 
 // Initialize VoltAgent
 const voltAgent = new VoltAgent({
-agents: {
-socialAnalyst,
-},
+  agents: {
+    socialAnalyst,
+  },
 });
-
 ```
-</CodeGroup>
 
 ## Troubleshooting
 

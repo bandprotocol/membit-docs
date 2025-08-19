@@ -125,8 +125,7 @@ Your Mastra agent is now powered by real-time social media context from Membit!
 
 Here's a full working example that demonstrates the integration:
 
-<CodeGroup>
-```typescript Basic Integration
+```typescript
 import { openai } from "@ai-sdk/openai";
 import { Agent } from '@mastra/core/agent';
 import { LibSQLStore } from '@mastra/libsql';
@@ -134,51 +133,49 @@ import { MCPClient } from "@mastra/mcp";
 
 // Initialize MCP client for Membit
 export const mcp = new MCPClient({
-servers: {
-membit: {
-command: "npx",
-env: {
-// Replace `<your-api-key>` with your actual Membit API key.
-MEMBIT_API_KEY: <your-api-key>,
-},
-args: [
-"mcp-remote",
-"https://mcp.membit.ai/mcp",
-"--header",
-"X-Membit-Api-Key:${MEMBIT_API_KEY}",
-],
-},
-},
+  servers: {
+    membit: {
+      command: "npx",
+      env: {
+      // Replace `<your-api-key>` with your actual Membit API key.
+        MEMBIT_API_KEY: <your-api-key>,
+      },
+      args: [
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+      ],
+    },
+  },
 });
 
 // Create Membit-powered agent
 export const membitAgent = new Agent({
-name: 'Membit Social Analyst',
-instructions: `You are an expert social media analyst with access to real-time trending data. 
-  Use cluster_search to find trending discussions, cluster_info to dive deeper into specific conversations, 
-  and post_search to find individual posts. Always provide context and source URLs.`,
-model: openrouter("anthropic/claude-3-5-sonnet-20241022"),
-tools: await mcp.getTools(),
+  name: 'Membit Social Analyst',
+  instructions: `You are an expert social media analyst with access to real-time trending data.
+Use cluster_search to find trending discussions, cluster_info to dive deeper into specific conversations,
+and post_search to find individual posts. Always provide context and source URLs.`,
+  model: openrouter("anthropic/claude-3-5-sonnet-20241022"),
+  tools: await mcp.getTools(),
 });
 
 async function main() {
-try {
-const result = await membitAgent.generate(
-"What are the most trending discussions today related to Bitcoin? Use cluster_search to find hot topics and provide the best conversations to follow with URLs."
-);
+  try {
+    const result = await membitAgent.generate(
+      "What are the most trending discussions today related to Bitcoin? Use cluster_search to find hot topics and provide the best conversations to follow with URLs."
+    );
 
     console.log("Analysis Results:");
     console.log(result.text);
 
-} catch (error) {
-console.error("Error during analysis:", error);
-}
+  } catch (error) {
+    console.error("Error during analysis:", error);
+  }
 }
 
 main();
-
 ```
-</CodeGroup>
 
 ## Troubleshooting
 
