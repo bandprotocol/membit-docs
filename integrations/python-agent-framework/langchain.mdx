@@ -175,39 +175,39 @@ from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
 # Initialize LLM
-
 llm = init_chat_model(
-model="gpt-4o",
-model_provider="openai",
+    model="gpt-4o",
+    model_provider="openai",
 )
 
 server_params = StdioServerParameters(
-command="npx",
-args=[
-"mcp-remote",
-"https://mcp.membit.ai/mcp",
-"--header",
-"X-Membit-Api-Key:${MEMBIT_API_KEY}",
-],
-env={ # Replace `<your-api-key>` with your actual Membit API key.
-"MEMBIT_API_KEY": <your-api-key>,
-},
+    command="npx",
+    args=[
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+    ],
+    env={
+        # Replace `<your-api-key>` with your actual Membit API key.
+        "MEMBIT_API_KEY": <your-api-key>,
+    },
 )
 
 prompt = ChatPromptTemplate.from_messages([
-(
-"system",
-"You are a social media analyst with access to real-time data. "
-"Make sure you utilize membit tools to get the most trending data."
-),
-MessagesPlaceholder(variable_name="messages"),
-MessagesPlaceholder(variable_name="agent_scratchpad"),
+    (
+        "system",
+        "You are a social media analyst with access to real-time data. "
+        "Make sure you utilize membit tools to get the most trending data."
+    ),
+    MessagesPlaceholder(variable_name="messages"),
+    MessagesPlaceholder(variable_name="agent_scratchpad"),
 ])
 
 async def main():
-async with stdio_client(server_params) as (read, write):
-async with ClientSession(read, write) as session:
-await session.initialize()
+    async with stdio_client(server_params) as (read, write):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
 
             mcp_tools = await load_mcp_tools(session)
 
@@ -232,10 +232,8 @@ await session.initialize()
                 "messages": [HumanMessage(content=user_input)]
             })
 
-
-if **name** == "**main**":
-asyncio.run(main())
-
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 </CodeGroup>
 
@@ -272,4 +270,3 @@ asyncio.run(main())
 - Test with simpler queries first
 </Accordion>
 </AccordionGroup>
-```

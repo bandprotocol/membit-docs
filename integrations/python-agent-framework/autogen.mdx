@@ -116,11 +116,11 @@ async with McpWorkbench(server_params=params) as workbench:
 Execute your agent with a social media analysis task:
 
 ```python
-    await Console(
-        agent.run_stream(
-            task="What are the most trending discussions about AI today? Use cluster_search to find hot topics and provide insights with URLs."
-        )
+await Console(
+    agent.run_stream(
+        task="What are the most trending discussions about AI today? Use cluster_search to find hot topics and provide insights with URLs."
     )
+)
 ```
 
 <Check>
@@ -142,20 +142,22 @@ from autogen_agentchat.ui import Console
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 from autogen_ext.tools.mcp import McpWorkbench, StdioServerParams
 
-async def main() -> None: # Configure MCP server connection
-params = StdioServerParams(
-command="npx",
-args=[
-"mcp-remote",
-"https://mcp.membit.ai/mcp",
-"--header",
-"X-Membit-Api-Key:${MEMBIT_API_KEY}",
-],
-env={ # Replace `<your-api-key>` with your actual Membit API key.
-"MEMBIT_API_KEY": <your-api-key>,
-},
-read_timeout_seconds=60,
-)
+async def main() -> None:
+    # Configure MCP server connection
+    params = StdioServerParams(
+        command="npx",
+        args=[
+            "mcp-remote",
+            "https://mcp.membit.ai/mcp",
+            "--header",
+            "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+        ],
+        env={
+            # Replace `<your-api-key>` with your actual Membit API key.
+            "MEMBIT_API_KEY": <your-api-key>,
+        },
+        read_timeout_seconds=60,
+    )
 
     # Initialize model client
     model_client = OpenAIChatCompletionClient(model="gpt-4o-mini")
@@ -182,8 +184,8 @@ read_timeout_seconds=60,
             )
         )
 
-if **name** == "**main**":
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
 
 ```
 </CodeGroup>
