@@ -4,9 +4,151 @@ description: "Find answers to frequently asked questions about Membit."
 icon: "circle-question"
 ---
 
-This section is for frequently asked questions.
+## General
 
-<Info>
-  This documentation is currently under development. Please check back soon for
-  more details.
-</Info>
+<AccordionGroup>
+  <Accordion title="What is Membit?">
+    Membit is a Context-as-a-Service (CaaS) platform that gives your AI agents
+    and analytics tools a direct line to what's happening in the world right
+    now. We provide a constantly updated knowledge base built from global social
+    discussions, so your AI is always equipped with the freshest context.
+  </Accordion>
+  <Accordion title="How is Membit different from other data providers or social listening tools?">
+    Traditional social listening tools are built for marketing dashboards.
+    Membit is built for AI. Instead of just raw data, we provide structured,
+    high-signal "context" that AI agents can easily understand and use. This
+    allows you to build applications that don't just report on the "what," but
+    understand the "why" behind real-time events.
+  </Accordion>
+  <Accordion title="Who is Membit for?">
+    Membit is for anyone building with AI who needs access to real-time world
+    context. It's especially powerful for:
+
+    - **AI Developers & Agent Builders:** Create smarter, more aware
+      applications.
+    - **Financial Analysts:** Spot market-moving trends and sentiment shifts as
+      they emerge.
+    - **Media & Content Creators:** Discover viral stories and generate timely
+      content.
+    - **Brands & Marketers:** Monitor brand health and gain competitive
+      intelligence.
+
+  </Accordion>
+  <Accordion title="Is Membit free to use during the beta period?">
+    Yes! During our beta, Membit is free for both personal and business use. We
+    provide a generous starting allocation of API credits, and you can request
+    more anytime by joining our [Discord](https://discord.gg/7TYEwVaTuk)
+    community.
+  </Accordion>
+</AccordionGroup>
+
+## For Data Hunters
+
+<AccordionGroup>
+  <Accordion title="What is the Membit Data Hunter program?">
+    The Membit Data Hunter program is a decentralized community that rewards you
+    for helping build a real-time context layer for AI. Using our browser
+    extension, you can gather public social data that makes AI models smarter
+    and more aware of current events. In return for your contributions, you earn
+    points and status.
+  </Accordion>
+  <Accordion title="What kind of content qualifies?">
+    We look for high-signal, timely, and publicly available content. Think
+    breaking announcements, expert analysis, and emerging trends. The goal is to
+    capture credible information that adds real value to a discussion and helps
+    AI understand the world more accurately.
+  </Accordion>
+  <Accordion title="How does the rewards system work?">
+    You earn points for every piece of valuable data you contribute. Our system
+    rewards you for both the quality of the information and for being early to
+    spot a trend. Points can be redeemed for perks like API credits, and top
+    contributors get recognized on our global leaderboard.
+  </Accordion>
+  <Accordion title="How is my contribution reviewed and used?">
+    Your contributions go through our automated pipeline where AI validates each
+    post, filters out noise, and groups related content into "discussion
+    clusters." This structured context is then made available to developers, who
+    use it to build smarter, context-aware AI applications.
+  </Accordion>
+  <Accordion title="What about privacy and data usage?">
+    Your privacy is a core principle. The extension only processes publicly
+    available data. It does not access private messages, personal profiles, or
+    paywalled content. You participate as a pseudonymous contributor, and we do
+    not sell personal user data.
+  </Accordion>
+  <Accordion title="How do I get started and contribute effectively?">
+    Install the Chrome extension and browse the web as you normally would. To
+    maximize your rewards, focus on your areas of expertise. Your unique
+    knowledge helps you spot high-signal content that others might miss,
+    increasing the value of your contribution to the network.
+  </Accordion>
+</AccordionGroup>
+
+## For Developers & API Users
+
+<AccordionGroup>
+  <Accordion title="How can I access Membit's data?">
+    We offer several ways to access our data to fit your workflow. You can use
+    our straightforward RESTful API, connect to our MCP server for real-time
+    streams, or use our official client libraries for Python and TypeScript.
+  </Accordion>
+  <Accordion title="What kind of data can I get from the Membit API?">
+    The API provides access to structured "discussion clusters." These are
+    collections of related social media posts, articles, and other content
+    centered around a specific topic or event. Your AI agents can search for
+    these clusters using natural language and then dive into the underlying
+    content to understand what real people are saying and how conversations are
+    evolving.
+  </Accordion>
+  <Accordion title="How up-to-date is the data?">
+    Our data is updated continuously. Our global network of Data Hunters
+    contributes new content 24/7, and we run our clustering and analysis
+    pipeline every hour. This ensures the context you provide to your AI is
+    always fresh and relevant.
+  </Accordion>
+  <Accordion title="What are API credits and how are they calculated?">
+    During our beta, every user starts with 500 API credits and receives an
+    additional 100 credits each day. Credits are used to pay for API calls, with
+    different endpoints having different costs based on their complexity. This
+    system ensures you only pay for the value you receive.
+  </Accordion>
+  <Accordion title="Are there rate limits for the API?">
+    Your usage is primarily governed by your available API credits rather than a
+    traditional requests-per-second rate limit. As long as you have credits, you
+    can make calls. If you have high-volume needs, please
+    [reach out to us on Discord](https://discord.gg/7TYEwVaTuk) to discuss a
+    custom plan.
+  </Accordion>
+  <Accordion title="What integrations are available for Membit?">
+    Membit is designed to integrate seamlessly into your existing stack. We have
+    guides and examples for popular frameworks, including:
+
+    **No-Code AI Agents:**
+
+    - [n8n](/integrations/no-code-agent-frameworks/n8n)
+    - [Gumloop](/integrations/no-code-agent-frameworks/gumloop)
+    - [Flowise](/integrations/no-code-agent-frameworks/flowise)
+    - [Langflow](/integrations/no-code-agent-frameworks/langflow)
+    - [Cursor](/integrations/no-code-agent-frameworks/cursor)
+
+    **Python Agents:**
+
+    - [CrewAI](/integrations/python-agent-framework/crewai)
+    - [LangChain](/integrations/python-agent-framework/langchain)
+    - [LlamaIndex](/integrations/python-agent-framework/llamaindex)
+    - [AutoGen](/integrations/python-agent-framework/autogen)
+
+    **Typescript Agents:**
+
+    - [Mastra](/integrations/typescript-agent-framework/mastra)
+    - [Voltagent](/integrations/typescript-agent-framework/voltagent)
+
+  </Accordion>
+  <Accordion title="Can I request a custom data pipeline or specific data sources?">
+    Absolutely. We understand that some applications have unique data
+    requirements. If you need a custom data pipeline or access to specific
+    sources not currently in our network, please
+    [reach out on Discord](https://discord.gg/7TYEwVaTuk) to discuss your needs
+    with our team.
+  </Accordion>
+</AccordionGroup>

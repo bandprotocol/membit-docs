@@ -21,7 +21,8 @@
           "how-membit-works",
           "use-cases",
           "access-and-auth",
-          "billing-and-cost"
+          "billing-and-cost",
+          "misc/faqs"
         ]
       },
       {
@@ -67,13 +68,6 @@
           "data-hunters/leaderboard",
           "data-hunters/point-redemption",
           "data-hunters/data-privacy-and-compliance"
-        ]
-      },
-      {
-        "group": "Misc",
-        "pages": [
-          "misc/faqs",
-          "misc/troubleshoots"
         ]
       }
     ]
