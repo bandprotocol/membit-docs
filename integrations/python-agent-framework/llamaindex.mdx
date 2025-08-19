@@ -161,21 +161,23 @@ import asyncio
 from llama_index.core.agent import ReActAgent
 from llama_index.core.memory import ChatMemoryBuffer
 from llama_index.llms.openai import OpenAI
-from llama_index.tools.mcp import aget_tools_from_mcp_url
+from llama_index.tools.mcp import BasicMCPClient, aget_tools_from_mcp_url
 
-async def main(): # Create MCP client
-mcp_client = BasicMCPClient(
-command_or_url="npx",
-args=[
-"mcp-remote",
-"https://mcp.membit.ai/mcp",
-"--header",
-"X-Membit-Api-Key:${MEMBIT_API_KEY}",
-],
-env={ # Replace `<your-api-key>` with your actual Membit API key.
-"MEMBIT_API_KEY": <your-api-key>,
-},
-)
+async def main():
+    # Create MCP client
+    mcp_client = BasicMCPClient(
+        command_or_url="npx",
+        args=[
+            "mcp-remote",
+            "https://mcp.membit.ai/mcp",
+            "--header",
+            "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+        ],
+        env={
+            # Replace `<your-api-key>` with your actual Membit API key.
+            "MEMBIT_API_KEY": <your-api-key>,
+        },
+    )
 
     # Get Membit tools
     tools = await aget_tools_from_mcp_url(
@@ -202,9 +204,8 @@ env={ # Replace `<your-api-key>` with your actual Membit API key.
 
     print(response)
 
-if **name** == "**main**":
-asyncio.run(main())
-
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 </CodeGroup>
 
@@ -241,4 +242,3 @@ asyncio.run(main())
 - Check your internet connection stability
 </Accordion>
 </AccordionGroup>
-```

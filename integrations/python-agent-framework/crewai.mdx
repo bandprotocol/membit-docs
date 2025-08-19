@@ -106,11 +106,11 @@ with MCPServerAdapter(server_params) as membit_tools:
 Create a task that leverages Membit's real-time data:
 
 ```python
-    analysis_task = Task(
-        description="Find the most trending discussions today about AI technology. Use cluster_search to identify hot topics and provide insights with source URLs.",
-        agent=analyst_agent,
-        expected_output="A comprehensive analysis of trending AI discussions with key insights and source URLs",
-    )
+analysis_task = Task(
+    description="Find the most trending discussions today about AI technology. Use cluster_search to identify hot topics and provide insights with source URLs.",
+    agent=analyst_agent,
+    expected_output="A comprehensive analysis of trending AI discussions with key insights and source URLs",
+)
 ```
 
 </Step>
@@ -119,14 +119,14 @@ Create a task that leverages Membit's real-time data:
 Create and run your CrewAI crew:
 
 ```python
-    # Create and execute the crew
-    crew = Crew(
-        agents=[analyst_agent],
-        tasks=[analysis_task]
-    )
+# Create and execute the crew
+crew = Crew(
+    agents=[analyst_agent],
+    tasks=[analysis_task]
+)
 
-    result = crew.kickoff()
-    print(result)
+result = crew.kickoff()
+print(result)
 ```
 
 <Check>
@@ -146,18 +146,19 @@ from crewai_tools import MCPServerAdapter
 from mcp import StdioServerParameters
 
 def main():
-server_params = StdioServerParameters(
-command="npx",
-args=[
-"mcp-remote",
-"https://mcp.membit.ai/mcp",
-"--header",
-"X-Membit-Api-Key:${MEMBIT_API_KEY}",
-],
-env={ # Replace `<your-api-key>` with your actual Membit API key.
-"MEMBIT_API_KEY": <your-api-key>,
-},
-)
+    server_params = StdioServerParameters(
+        command="npx",
+        args=[
+            "mcp-remote",
+            "https://mcp.membit.ai/mcp",
+            "--header",
+            "X-Membit-Api-Key:${MEMBIT_API_KEY}",
+        ],
+        env={
+            # Replace `<your-api-key>` with your actual Membit API key.
+            "MEMBIT_API_KEY": <your-api-key>,
+        },
+    )
 
     with MCPServerAdapter(server_params) as membit_tools:
         # Create a social media analyst agent
@@ -183,8 +184,8 @@ env={ # Replace `<your-api-key>` with your actual Membit API key.
         print("Analysis Results:")
         print(result)
 
-if **name** == "**main**":
-main()
+if __name__ == "__main__":
+    main()
 
 ```
 </CodeGroup>
@@ -222,4 +223,3 @@ main()
 - Ensure agents have clear, specific roles and goals
 </Accordion>
 </AccordionGroup>
-```
