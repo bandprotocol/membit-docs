@@ -12,6 +12,10 @@
     "light": "#8f8fff",
     "dark": "#5050ff"
   },
+  "appearance": {
+    "default": "light",
+    "strict": true
+  },
   "navigation": {
     "groups": [
       {
