@@ -6,6 +6,11 @@
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
+  "integrations": {
+    "ga4": {
+      "measurementId": "G-D0M7MLWDM2"
+    }
+  },
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#6b6bff",
