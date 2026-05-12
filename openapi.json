@@ -220,11 +220,19 @@
           {
             "name": "q",
             "in": "query",
-            "required": true,
+            "required": false,
             "description": "Search query (minimum 3 characters)",
             "schema": {
-              "type": "string",
-              "minLength": 3
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "description": "Filter clusters by topic category",
+            "schema": {
+              "type": "string"
             }
           },
           {
