@@ -1,0 +1,192 @@
+---
+title: "Claude Desktop"
+description: "Integrate real-time context to your Claude Desktop via Membit MCP."
+icon: "); mask-image: url('/images/icons/claude.png'); mask-size: 100% 100%;/*"
+---
+
+Claude Desktop supports custom MCP integrations (currently in beta). By connecting Membit, you give Claude access to real-time social context—so it can answer with what's happening now across the web.
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- Claude Desktop installed (macOS or Windows)
+- A Membit account with an API key [get your API key](/access-and-auth)
+- Basic familiarity with editing configuration files
+
+## Set up Membit Remote MCP
+
+Follow these steps to enable the Membit MCP server in Claude Desktop:
+
+<Steps>
+<Step title="Create or open the Claude config file">
+Use the correct path for your OS.
+
+<Tabs>
+<Tab title="macOS">
+
+```bash
+nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
+```
+
+</Tab>
+<Tab title="Windows">
+
+```powershell
+notepad C:\Users\%USERNAME%\AppData\Roaming\Claude\claude_desktop_config.json
+```
+
+</Tab>
+</Tabs>
+
+<Tip>
+If the file doesn't exist, these commands will create it when you save.
+</Tip>
+</Step>
+
+<Step title="Add the Membit MCP configuration">
+Paste the following JSON into `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "membit-remote-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.membit.ai/mcp",
+        "--header",
+        "X-Membit-Api-Key:${API_KEY}"
+      ],
+      "env": {
+        "API_KEY": "<your-api-key>"
+      }
+    }
+  }
+}
+```
+
+<Warning>
+Replace `<your-api-key>` with your actual Membit API key. Keep this credential secure and never share it publicly.
+</Warning>
+
+<Check>
+Validate your JSON: ensure quotes are correct and there are no trailing commas.
+</Check>
+</Step>
+
+<Step title="Restart Claude Desktop">
+  Completely quit and reopen Claude Desktop to load the new MCP configuration.
+</Step>
+
+<Step title="Verify the integration">
+Open Claude and confirm the Membit MCP tools are available.
+
+<Frame>
+  <img
+    src="/images/claude/membit-mcp.png"
+    alt="Claude Desktop showing Membit MCP tools available"
+  />
+</Frame>
+
+<Check>
+You should see Membit tools available for use when Claude performs tool calls.
+</Check>
+</Step>
+</Steps>
+
+## Use Membit with Claude
+
+Now that the integration is set, try a chat enhanced with real-time context:
+
+<Steps>
+<Step title="Start a new chat in Claude">
+Open Claude Desktop and begin a conversation.
+</Step>
+
+<Step title="Ask context-aware questions">
+Try prompts that benefit from up-to-the-minute context:
+
+- "What's trending in AI today?"
+- "Summarize the latest crypto news from real conversations"
+- "What are people discussing about [your topic] right now?"
+
+<Note>
+  Claude may ask to run tools—allow tool usage so it can call the Membit MCP.
+</Note>
+
+<Frame caption="Claude responding with real-time context via Membit">
+  <img
+    src="/images/claude/talk-with-chat.png"
+    alt="Claude chat showing responses with real-time context"
+  />
+</Frame>
+
+<Check>
+Responses should include timely insights sourced from current public conversations.
+</Check>
+</Step>
+</Steps>
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Config file not detected">
+**Problem**: Claude doesn't load the MCP configuration.
+
+**Solutions**:
+
+- Verify the file path is exact for your OS:
+  - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+  - Windows: `C:\\Users\\%USERNAME%\\AppData\\Roaming\\Claude\\claude_desktop_config.json`
+- Ensure Claude Desktop was fully restarted after edits
+- Confirm the file encoding is UTF-8 without BOM
+
+</Accordion>
+
+<Accordion title="JSON syntax errors">
+**Problem**: Configuration fails to parse.
+
+**Solutions**:
+
+- Validate JSON with an online linter
+- Remove trailing commas and ensure double quotes are used
+- Confirm braces and brackets are properly matched
+
+</Accordion>
+
+<Accordion title="API key authentication fails">
+**Problem**: Membit tools show auth errors.
+
+**Solutions**:
+
+- Ensure `env.API_KEY` contains your exact Membit API key
+- Confirm the header name is `X-Membit-Api-Key` (case-sensitive)
+- Regenerate your API key in Membit if issues persist
+
+</Accordion>
+
+<Accordion title="Membit tools not appearing">
+**Problem**: Tools don't show up in Claude.
+
+**Solutions**:
+
+- Double-check the `mcpServers` object name and structure
+- Ensure `npx` is available on your system PATH
+- Try adding `-y` to `npx` args (already included above)
+- Restart Claude after any config changes
+
+</Accordion>
+
+<Accordion title="Claude won't run tools">
+**Problem**: Claude replies without using the MCP.
+
+**Solutions**:
+
+- Make prompts more explicit: "Use the available tools to check what's happening now about..."
+- Allow tool usage when prompted in the chat
+- Ask about timely topics that require fresh context
+
+</Accordion>
+</AccordionGroup>

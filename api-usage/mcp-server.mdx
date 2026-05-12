@@ -6,6 +6,51 @@ icon: "); mask-image: url('/images/icons/mcp.svg'); mask-size: 100% 100%;/*"
 
 Membit MCP Server connects your AI systems to live social insights via Membit's API. Using the Model Context Protocol (MCP), the server exposes tools that make up-to-the-minute social context—trending discussion clusters, raw posts, and more—available to your AI agents in Cursor, Claude Desktop, Goose, and any MCP-compatible client.
 
+## Available tools
+
+These tools are exposed by the Membit MCP server and can be called by MCP-compatible clients (e.g., Cursor, Claude Desktop).
+
+### clusters.search
+
+Search for trending discussion clusters across platforms.
+
+<ParamField query="q" type="string" required>
+  Free-text query describing the topic (e.g., "ai agents", "us elections").
+</ParamField>
+
+<ParamField query="limit" type="integer" default="10">
+  Maximum number of clusters to return. Range: 1–50.
+</ParamField>
+
+### clusters.info
+
+Get detailed context for a specific cluster label, including representative posts.
+
+<ParamField query="label" type="string" required>
+  Cluster label obtained from `clusters.search`.
+</ParamField>
+
+<ParamField query="limit" type="integer" default="10">
+  Maximum number of representative posts to include. Range: 1–50.
+</ParamField>
+
+### posts.search
+
+Search raw social posts that match your query across supported platforms.
+
+<ParamField query="q" type="string" required>
+  Free-text query describing the topic or keywords.
+</ParamField>
+
+<ParamField query="limit" type="integer" default="10">
+  Maximum number of posts to return. Range: 1–100.
+</ParamField>
+
+<Tip>
+  All tools respect privacy: results surface public conversations only and never
+  expose personal identifiers beyond public metadata.
+</Tip>
+
 ## Remote MCP Server
 
 Connect Membit's remote MCP server directly without the need for local setup. This approach offers a streamlined experience that eliminates local installation and configuration requirements.
